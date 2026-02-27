@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Sailing Fitness Testing</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --bg: #FAF7F2;
+  --card: #FFFFFF;
+  --border: #E8E0D8;
+  --text: #1A1A1A;
+  --text-secondary: #6B6560;
+  --accent: #D4714E;
+  --accent-hover: #C0603F;
+  --accent-light: #F5E6DE;
+  --success: #4A9D6E;
+  --danger: #D45454;
+  --blue: #4A7DC9;
+  --red: #D45454;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+.header-title {
+  font-weight: 600; font-size: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.header-title .logo {
+  width: 24px; height: 24px;
+  background: var(--accent);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 12px;
+}
+.header-squad {
+  font-size: 13px; color: var(--text-secondary);
+  background: var(--accent-light);
+  padding: 4px 10px; border-radius: 20px;
+  font-weight: 500;
+}
+.menu-btn {
+  background: none; border: none; cursor: pointer;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 20px;
+}
+.menu-btn:hover { background: var(--accent-light); }
+
+/* ===== NAV DRAWER ===== */
+.nav-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+  z-index: 200; opacity: 0; pointer-events: none;
+  transition: opacity 0.2s;
+}
+.nav-overlay.open { opacity: 1; pointer-events: auto; }
+.nav-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 280px; max-width: 80vw;
+  background: var(--card);
+  z-index: 201;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+.nav-overlay.open .nav-drawer { transform: translateX(0); }
+.nav-section { padding: 8px 16px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; cursor: pointer;
+  font-size: 14px; font-weight: 500;
+  color: var(--text); transition: background 0.15s;
+}
+.nav-item:hover { background: var(--accent-light); }
+.nav-item.active { color: var(--accent); background: var(--accent-light); }
+.nav-item .nav-icon { width: 20px; text-align: center; font-size: 16px; }
+.nav-divider { height: 1px; background: var(--border); margin: 8px 16px; }
+
+/* ===== MAIN CONTENT ===== */
+.main { padding-top: 56px; min-height: 100vh; }
+.page { display: none; padding: 20px 16px 100px; max-width: 600px; margin: 0 auto; }
+.page.active { display: block; }
+.page-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.page-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+.card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 20px;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  font-family: var(--sans); font-size: 14px; font-weight: 600;
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: var(--accent-light); color: var(--accent); }
+.btn-secondary:hover { background: #EDDDD4; }
+.btn-danger { background: #FDE8E8; color: var(--danger); }
+.btn-danger:hover { background: #FACACA; }
+.btn-success { background: #E8F5ED; color: var(--success); }
+.btn-success:hover { background: #D1ECDA; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ===== FORMS ===== */
+input, select, textarea {
+  font-family: var(--sans); font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  width: 100%;
+  transition: border-color 0.15s;
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text-secondary); }
+.form-group { margin-bottom: 12px; }
+
+/* ===== TIMER DISPLAY ===== */
+.master-clock {
+  text-align: center; padding: 20px;
+  background: var(--text); color: white;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+.master-clock .time {
+  font-family: var(--mono);
+  font-size: 48px; font-weight: 500;
+  letter-spacing: 2px;
+}
+.master-clock .label { font-size: 12px; color: #999; margin-bottom: 4px; }
+.clock-controls { display: flex; gap: 8px; margin-top: 12px; justify-content: center; }
+
+/* ===== SAILOR ROW ===== */
+.sailor-list { margin-top: 12px; }
+.sailor-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: var(--card);
+  transition: background 0.15s;
+}
+.sailor-row.stopped { background: #FFF8F0; border-color: var(--accent); }
+.sailor-row .sailor-name {
+  flex: 1; font-size: 14px; font-weight: 500;
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.sailor-row .sailor-id {
+  font-size: 11px; color: var(--text-secondary);
+  font-family: var(--mono);
+}
+.sailor-row .sailor-time {
+  font-family: var(--mono); font-size: 16px; font-weight: 500;
+  min-width: 75px; text-align: right;
+  color: var(--text-secondary);
+}
+.sailor-row.stopped .sailor-time { color: var(--accent); font-weight: 700; }
+.sailor-row .sailor-count {
+  font-family: var(--mono); font-size: 20px; font-weight: 700;
+  min-width: 40px; text-align: center;
+  color: var(--text-secondary);
+}
+.sailor-row.stopped .sailor-count { color: var(--accent); }
+.stop-btn {
+  padding: 6px 14px; border: none; border-radius: 6px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+  min-width: 64px;
+}
+.stop-btn.running { background: var(--danger); color: white; }
+.stop-btn.stopped { background: var(--success); color: white; }
+.override-input {
+  width: 75px !important; padding: 4px 6px !important;
+  font-family: var(--mono) !important; font-size: 13px !important;
+  text-align: center;
+}
+
+/* ===== METRONOME ===== */
+.metronome-display {
+  text-align: center; padding: 24px;
+  background: var(--text); color: white;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+.metronome-display .bpm-value {
+  font-family: var(--mono); font-size: 56px; font-weight: 500;
+}
+.metronome-display .bpm-label { font-size: 12px; color: #999; }
+.metronome-display .rep-count {
+  font-family: var(--mono); font-size: 32px; font-weight: 500;
+  margin-top: 8px; color: var(--accent);
+}
+.metronome-display .cue-word {
+  font-size: 28px; font-weight: 700;
+  margin-top: 8px; min-height: 40px;
+}
+.bpm-control {
+  display: flex; align-items: center; gap: 12px;
+  justify-content: center; margin: 12px 0;
+}
+.bpm-control button {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2px solid var(--border); background: var(--card);
+  font-size: 20px; cursor: pointer; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.bpm-control input {
+  width: 80px; text-align: center;
+  font-family: var(--mono); font-size: 18px; font-weight: 600;
+}
+
+/* ===== BROAD JUMP ===== */
+.jump-input {
+  width: 80px !important; text-align: center;
+  font-family: var(--mono) !important; font-size: 16px !important;
+  padding: 8px !important;
+}
+
+/* ===== SETUP ===== */
+.squad-cards { display: flex; gap: 10px; flex-wrap: wrap; }
+.squad-card {
+  flex: 1; min-width: 120px;
+  padding: 20px 16px; text-align: center;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  background: var(--card);
+  transition: all 0.15s;
+}
+.squad-card:hover { border-color: var(--accent); background: var(--accent-light); }
+.squad-card.selected { border-color: var(--accent); background: var(--accent-light); }
+.squad-card .squad-name { font-size: 16px; font-weight: 700; }
+.squad-card .squad-count { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+.roster-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.roster-table th {
+  text-align: left; padding: 8px; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-secondary); border-bottom: 2px solid var(--border);
+}
+.roster-table td {
+  padding: 8px; border-bottom: 1px solid var(--border);
+}
+.roster-table .gender-m { color: var(--blue); font-weight: 600; }
+.roster-table .gender-f { color: var(--red); font-weight: 600; }
+
+/* ===== REPORT ===== */
+.report-preview { padding: 16px; }
+.report-test-section { margin-bottom: 20px; }
+.report-test-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.bar-chart-container { margin-bottom: 6px; }
+.bar-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; font-weight: 500; }
+.bar-track {
+  height: 24px; background: #F0EBE5;
+  border-radius: 4px; position: relative;
+  overflow: hidden;
+}
+.bar-range {
+  position: absolute; top: 2px; bottom: 2px;
+  border-radius: 3px;
+}
+.bar-marker {
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  transform: translateX(-50%);
+}
+
+/* ===== UTILITIES ===== */
+.flex { display: flex; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.text-center { text-align: center; }
+.text-sm { font-size: 13px; }
+.text-muted { color: var(--text-secondary); }
+.hidden { display: none !important; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: white;
+  padding: 10px 20px; border-radius: 8px;
+  font-size: 13px; font-weight: 500;
+  z-index: 300; opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ===== FILE INPUT ===== */
+.file-drop {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.file-drop:hover { border-color: var(--accent); background: var(--accent-light); }
+.file-drop input { display: none; }
+.file-drop .icon { font-size: 28px; margin-bottom: 8px; }
+.file-drop .text { font-size: 13px; color: var(--text-secondary); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.pulsing { animation: pulse 1s infinite; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.page.active { animation: fadeIn 0.2s ease; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">
+    <div class="logo">S</div>
+    <span>Sail Fit</span>
+  </div>
+  <div id="headerSquad" class="header-squad hidden"></div>
+  <button class="menu-btn" onclick="toggleNav()">☰</button>
+</div>
+
+<!-- NAV DRAWER -->
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()">
+  <div class="nav-drawer" onclick="event.stopPropagation()">
+    <div class="nav-section">Setup</div>
+    <div class="nav-item active" data-page="setup" onclick="goTo('setup')">
+      <span class="nav-icon">⚙️</span> Squad & Roster
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-section">Timer Tests</div>
+    <div class="nav-item" data-page="run5k" onclick="goTo('run5k')">
+      <span class="nav-icon">🏃</span> 5km Run
+    </div>
+    <div class="nav-item" data-page="run18k" onclick="goTo('run18k')">
+      <span class="nav-icon">🏃</span> 1.8km Run
+    </div>
+    <div class="nav-item" data-page="run27k" onclick="goTo('run27k')">
+      <span class="nav-icon">🏃</span> 2.7km Run
+    </div>
+    <div class="nav-item" data-page="plank" onclick="goTo('plank')">
+      <span class="nav-icon">💪</span> Plank
+    </div>
+    <div class="nav-item" data-page="shuttle" onclick="goTo('shuttle')">
+      <span class="nav-icon">🔀</span> Shuttle Agility Run
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-section">Metronome Tests</div>
+    <div class="nav-item" data-page="pushup" onclick="goTo('pushup')">
+      <span class="nav-icon">🫸</span> Push-up
+    </div>
+    <div class="nav-item" data-page="pullup" onclick="goTo('pullup')">
+      <span class="nav-icon">🧗</span> Pull-up
+    </div>
+    <div class="nav-item" data-page="inclinepullup" onclick="goTo('inclinepullup')">
+      <span class="nav-icon">🧗</span> Incline Pull-up
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-section">Other Tests</div>
+    <div class="nav-item" data-page="broadjump" onclick="goTo('broadjump')">
+      <span class="nav-icon">📏</span> Standing Broad Jump
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-section">Data</div>
+    <div class="nav-item" data-page="report" onclick="goTo('report')">
+      <span class="nav-icon">📊</span> Squad Report
+    </div>
+    <div class="nav-item" onclick="exportCSV()">
+      <span class="nav-icon">💾</span> Export CSV
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ===== SETUP PAGE ===== -->
+  <div class="page active" id="page-setup">
+    <div class="page-title">Squad Setup</div>
+    <div class="page-subtitle">Select a squad and upload the sailor roster</div>
+
+    <div class="card">
+      <div class="card-title">Select Squad</div>
+      <div class="squad-cards">
+        <div class="squad-card" onclick="selectSquad('ILCA')" data-squad="ILCA">
+          <div class="squad-name">ILCA</div>
+          <div class="squad-count" id="count-ILCA">0 sailors</div>
+        </div>
+        <div class="squad-card" onclick="selectSquad('29er')" data-squad="29er">
+          <div class="squad-name">29er</div>
+          <div class="squad-count" id="count-29er">0 sailors</div>
+        </div>
+        <div class="squad-card" onclick="selectSquad('Optimist')" data-squad="Optimist">
+          <div class="squad-name">Optimist</div>
+          <div class="squad-count" id="count-Optimist">0 sailors</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="rosterSection" class="hidden">
+      <div class="card">
+        <div class="card-title">Test Date</div>
+        <input type="date" id="testDate" onchange="saveState()">
+      </div>
+
+      <div class="card">
+        <div class="flex-between mb-8">
+          <div class="card-title" style="margin-bottom:0">Roster — <span id="rosterSquadName"></span></div>
+          <button class="btn btn-sm btn-danger" onclick="clearRoster()">Clear</button>
+        </div>
+        <div class="file-drop" onclick="document.getElementById('rosterFile').click()">
+          <input type="file" id="rosterFile" accept=".csv" onchange="handleRosterUpload(event)">
+          <div class="icon">📄</div>
+          <div class="text">Upload CSV (ID, Name, Gender, Year of Birth)<br>
+          <strong>Example:</strong> 001, John Doe, M, 2010</div>
+        </div>
+        <div id="rosterTableContainer" class="mt-12"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TIMER TEST PAGES ===== -->
+  <div class="page" id="page-run5k"></div>
+  <div class="page" id="page-run18k"></div>
+  <div class="page" id="page-run27k"></div>
+  <div class="page" id="page-plank"></div>
+  <div class="page" id="page-shuttle"></div>
+
+  <!-- ===== METRONOME TEST PAGES ===== -->
+  <div class="page" id="page-pushup"></div>
+  <div class="page" id="page-pullup"></div>
+  <div class="page" id="page-inclinepullup"></div>
+
+  <!-- ===== BROAD JUMP PAGE ===== -->
+  <div class="page" id="page-broadjump"></div>
+
+  <!-- ===== REPORT PAGE ===== -->
+  <div class="page" id="page-report"></div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== STATE ====================
+const APP_KEY = 'sailfit_v1';
+let state = {
+  currentSquad: null,
+  testDate: new Date().toISOString().split('T')[0],
+  rosters: { ILCA: [], '29er': [], Optimist: [] },
+  results: {} // { squadName: { testName: { sailorId: value } } }
+};
+
+// Timer states (not persisted — ephemeral)
+let timerStates = {};
+let metronomeStates = {};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(APP_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state = { ...state, ...parsed };
+    }
+  } catch(e) { console.error('Load state error', e); }
+}
+
+function saveState() {
+  state.testDate = document.getElementById('testDate')?.value || state.testDate;
+  try {
+    localStorage.setItem(APP_KEY, JSON.stringify(state));
+  } catch(e) { console.error('Save state error', e); }
+}
+
+function getResults(testName) {
+  if (!state.currentSquad) return {};
+  if (!state.results[state.currentSquad]) state.results[state.currentSquad] = {};
+  if (!state.results[state.currentSquad][testName]) state.results[state.currentSquad][testName] = {};
+  return state.results[state.currentSquad][testName];
+}
+
+function setResult(testName, sailorId, value) {
+  if (!state.currentSquad) return;
+  if (!state.results[state.currentSquad]) state.results[state.currentSquad] = {};
+  if (!state.results[state.currentSquad][testName]) state.results[state.currentSquad][testName] = {};
+  state.results[state.currentSquad][testName][sailorId] = value;
+  saveState();
+}
+
+function getRoster() {
+  return state.currentSquad ? (state.rosters[state.currentSquad] || []) : [];
+}
+
+// ==================== NAVIGATION ====================
+function toggleNav() {
+  document.getElementById('navOverlay').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navOverlay').classList.remove('open');
+}
+function goTo(page) {
+  closeNav();
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) {
+    el.classList.add('active');
+    renderPage(page);
+  }
+  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+}
+
+// ==================== TOAST ====================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ==================== SETUP ====================
+function selectSquad(squad) {
+  state.currentSquad = squad;
+  document.querySelectorAll('.squad-card').forEach(c => c.classList.toggle('selected', c.dataset.squad === squad));
+  document.getElementById('rosterSection').classList.remove('hidden');
+  document.getElementById('rosterSquadName').textContent = squad;
+  document.getElementById('headerSquad').textContent = squad;
+  document.getElementById('headerSquad').classList.remove('hidden');
+  document.getElementById('testDate').value = state.testDate;
+  renderRosterTable();
+  saveState();
+}
+
+function updateSquadCounts() {
+  ['ILCA', '29er', 'Optimist'].forEach(s => {
+    document.getElementById('count-' + s).textContent = (state.rosters[s]?.length || 0) + ' sailors';
+  });
+}
+
+function handleRosterUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const lines = e.target.result.split('\n').filter(l => l.trim());
+    const roster = [];
+    for (const line of lines) {
+      const parts = line.split(',').map(s => s.trim());
+      if (parts.length >= 4 && parts[0] && parts[1]) {
+        // Skip header row
+        if (parts[0].toLowerCase() === 'id' || parts[0].toLowerCase() === 'sailor id') continue;
+        roster.push({
+          id: parts[0],
+          name: parts[1],
+          gender: parts[2].toUpperCase().startsWith('F') ? 'F' : 'M',
+          yob: parseInt(parts[3]) || 2000
+        });
+      }
+    }
+    if (roster.length === 0) {
+      showToast('No valid rows found. Format: ID, Name, Gender, YOB');
+      return;
+    }
+    state.rosters[state.currentSquad] = roster;
+    saveState();
+    renderRosterTable();
+    updateSquadCounts();
+    showToast(roster.length + ' sailors loaded');
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function clearRoster() {
+  if (!confirm('Clear roster for ' + state.currentSquad + '?')) return;
+  state.rosters[state.currentSquad] = [];
+  state.results[state.currentSquad] = {};
+  saveState();
+  renderRosterTable();
+  updateSquadCounts();
+  showToast('Roster cleared');
+}
+
+function renderRosterTable() {
+  const roster = getRoster();
+  const container = document.getElementById('rosterTableContainer');
+  if (roster.length === 0) {
+    container.innerHTML = '<div class="text-center text-sm text-muted" style="padding:16px">No sailors loaded</div>';
+    return;
+  }
+  let html = '<table class="roster-table"><thead><tr><th>ID</th><th>Name</th><th>Gender</th><th>YOB</th><th></th></tr></thead><tbody>';
+  roster.forEach((s, i) => {
+    html += `<tr>
+      <td style="font-family:var(--mono)">${s.id}</td>
+      <td>${s.name}</td>
+      <td class="gender-${s.gender.toLowerCase()}">${s.gender}</td>
+      <td>${s.yob}</td>
+      <td><button class="btn btn-sm btn-danger" onclick="removeSailor(${i})" style="padding:2px 8px">✕</button></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function removeSailor(idx) {
+  state.rosters[state.currentSquad].splice(idx, 1);
+  saveState();
+  renderRosterTable();
+  updateSquadCounts();
+}
+
+// ==================== TIMER TEST ====================
+function initTimerState(testName) {
+  if (!timerStates[testName]) {
+    timerStates[testName] = {
+      running: false,
+      startTime: null,
+      elapsed: 0,
+      intervalId: null,
+      sailors: {} // { id: { stopped: false, time: 0 } }
+    };
+  }
+  return timerStates[testName];
+}
+
+function formatTime(ms) {
+  const totalSec = Math.floor(ms / 1000);
+  const min = Math.floor(totalSec / 60);
+  const sec = totalSec % 60;
+  const tenths = Math.floor((ms % 1000) / 100);
+  return `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}.${tenths}`;
+}
+
+function parseTimeStr(str) {
+  // Parse MM:SS.T or MM:SS
+  const match = str.match(/^(\d+):(\d{2})(?:\.(\d))?$/);
+  if (!match) return null;
+  const min = parseInt(match[1]);
+  const sec = parseInt(match[2]);
+  const tenths = match[3] ? parseInt(match[3]) : 0;
+  return (min * 60 + sec) * 1000 + tenths * 100;
+}
+
+function renderTimerPage(testName, title, subtitle) {
+  const page = document.getElementById('page-' + testName);
+  const ts = initTimerState(testName);
+  const roster = getRoster();
+  const results = getResults(testName);
+
+  // Restore sailor states from results
+  roster.forEach(s => {
+    if (!ts.sailors[s.id]) {
+      ts.sailors[s.id] = { stopped: false, time: 0 };
+    }
+    if (results[s.id] !== undefined && !ts.running) {
+      ts.sailors[s.id].stopped = true;
+      ts.sailors[s.id].time = results[s.id];
+    }
+  });
+
+  let html = `
+    <div class="page-title">${title}</div>
+    <div class="page-subtitle">${subtitle}</div>
+    <div class="master-clock" id="clock-${testName}">
+      <div class="label">ELAPSED TIME</div>
+      <div class="time" id="clockTime-${testName}">${formatTime(ts.elapsed)}</div>
+      <div class="clock-controls">
+        <button class="btn ${ts.running ? 'btn-danger' : 'btn-success'}" id="clockBtn-${testName}" onclick="toggleTimer('${testName}')">
+          ${ts.running ? '⏸ Pause' : (ts.elapsed > 0 ? '▶ Resume' : '▶ Start')}
+        </button>
+        <button class="btn btn-secondary" onclick="resetTimer('${testName}')">↺ Reset</button>
+      </div>
+    </div>
+    <div class="sailor-list" id="sailorList-${testName}">`;
+
+  if (roster.length === 0) {
+    html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded. Go to Setup to upload a roster.</div>';
+  } else {
+    roster.forEach(s => {
+      const ss = ts.sailors[s.id] || { stopped: false, time: 0 };
+      html += `
+        <div class="sailor-row ${ss.stopped ? 'stopped' : ''}" id="row-${testName}-${s.id}">
+          <div>
+            <div class="sailor-name">${s.name}</div>
+            <div class="sailor-id">${s.id}</div>
+          </div>
+          <div class="sailor-time" id="time-${testName}-${s.id}">${ss.stopped ? formatTime(ss.time) : '--:--.--'}</div>
+          <button class="stop-btn ${ss.stopped ? 'stopped' : 'running'}" id="stopBtn-${testName}-${s.id}"
+            onclick="toggleSailorTimer('${testName}','${s.id}')">
+            ${ss.stopped ? 'Resume' : 'Stop'}
+          </button>
+          <input class="override-input" type="text" placeholder="MM:SS.T"
+            id="override-${testName}-${s.id}"
+            onchange="overrideTime('${testName}','${s.id}', this.value)"
+            value="${ss.stopped ? formatTime(ss.time) : ''}">
+        </div>`;
+    });
+  }
+  html += '</div>';
+  page.innerHTML = html;
+}
+
+function toggleTimer(testName) {
+  const ts = timerStates[testName];
+  if (ts.running) {
+    // Pause
+    clearInterval(ts.intervalId);
+    ts.elapsed = Date.now() - ts.startTime;
+    ts.running = false;
+  } else {
+    // Start/Resume
+    ts.startTime = Date.now() - ts.elapsed;
+    ts.running = true;
+    ts.intervalId = setInterval(() => updateTimerDisplay(testName), 100);
+  }
+  updateTimerButtons(testName);
+}
+
+function resetTimer(testName) {
+  if (!confirm('Reset timer and all recorded times?')) return;
+  const ts = timerStates[testName];
+  clearInterval(ts.intervalId);
+  ts.running = false;
+  ts.startTime = null;
+  ts.elapsed = 0;
+  ts.sailors = {};
+  // Clear results
+  if (state.currentSquad && state.results[state.currentSquad]) {
+    delete state.results[state.currentSquad][testName];
+    saveState();
+  }
+  renderTimerPage(testName, getTestTitle(testName), getTestSubtitle(testName));
+}
+
+function updateTimerDisplay(testName) {
+  const ts = timerStates[testName];
+  const elapsed = Date.now() - ts.startTime;
+  ts.elapsed = elapsed;
+  const clockEl = document.getElementById('clockTime-' + testName);
+  if (clockEl) clockEl.textContent = formatTime(elapsed);
+
+  // Update running sailors
+  getRoster().forEach(s => {
+    const ss = ts.sailors[s.id];
+    if (ss && !ss.stopped) {
+      const timeEl = document.getElementById('time-' + testName + '-' + s.id);
+      if (timeEl) timeEl.textContent = formatTime(elapsed);
+    }
+  });
+}
+
+function updateTimerButtons(testName) {
+  const ts = timerStates[testName];
+  const btn = document.getElementById('clockBtn-' + testName);
+  if (btn) {
+    btn.className = 'btn ' + (ts.running ? 'btn-danger' : 'btn-success');
+    btn.innerHTML = ts.running ? '⏸ Pause' : (ts.elapsed > 0 ? '▶ Resume' : '▶ Start');
+  }
+}
+
+function toggleSailorTimer(testName, sailorId) {
+  const ts = timerStates[testName];
+  if (!ts.sailors[sailorId]) ts.sailors[sailorId] = { stopped: false, time: 0 };
+  const ss = ts.sailors[sailorId];
+
+  if (ss.stopped) {
+    // Resume — follows master clock
+    ss.stopped = false;
+    ss.time = 0;
+    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    if (row) row.classList.remove('stopped');
+    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    if (btn) { btn.textContent = 'Stop'; btn.className = 'stop-btn running'; }
+    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    if (ov) ov.value = '';
+    // Remove from results
+    if (state.currentSquad && state.results[state.currentSquad]?.[testName]) {
+      delete state.results[state.currentSquad][testName][sailorId];
+      saveState();
+    }
+  } else {
+    // Stop — capture master clock time
+    const elapsed = ts.running ? (Date.now() - ts.startTime) : ts.elapsed;
+    ss.stopped = true;
+    ss.time = elapsed;
+    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    if (row) row.classList.add('stopped');
+    const timeEl = document.getElementById('time-' + testName + '-' + sailorId);
+    if (timeEl) timeEl.textContent = formatTime(elapsed);
+    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    if (ov) ov.value = formatTime(elapsed);
+    setResult(testName, sailorId, elapsed);
+  }
+}
+
+function overrideTime(testName, sailorId, val) {
+  const ms = parseTimeStr(val);
+  if (ms === null) { showToast('Invalid format. Use MM:SS.T'); return; }
+  const ts = timerStates[testName];
+  if (!ts.sailors[sailorId]) ts.sailors[sailorId] = { stopped: false, time: 0 };
+  ts.sailors[sailorId].stopped = true;
+  ts.sailors[sailorId].time = ms;
+  const row = document.getElementById('row-' + testName + '-' + sailorId);
+  if (row) row.classList.add('stopped');
+  const timeEl = document.getElementById('time-' + testName + '-' + sailorId);
+  if (timeEl) timeEl.textContent = formatTime(ms);
+  const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+  if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+  setResult(testName, sailorId, ms);
+}
+
+// ==================== METRONOME TEST ====================
+function initMetronomeState(testName) {
+  if (!metronomeStates[testName]) {
+    metronomeStates[testName] = {
+      bpm: 40,
+      running: false,
+      repCount: 0,
+      cuePhase: 0, // 0=first cue, 1=second cue
+      intervalId: null,
+      audioCtx: null,
+      sailors: {} // { id: { stopped: false, count: 0 } }
+    };
+  }
+  return metronomeStates[testName];
+}
+
+function getFirstCue(testName) {
+  return (testName === 'pushup') ? 'Down' : 'Up';
+}
+function getSecondCue(testName) {
+  return (testName === 'pushup') ? 'Up' : 'Down';
+}
+
+function renderMetronomePage(testName, title, subtitle) {
+  const page = document.getElementById('page-' + testName);
+  const ms = initMetronomeState(testName);
+  const roster = getRoster();
+  const results = getResults(testName);
+
+  roster.forEach(s => {
+    if (!ms.sailors[s.id]) ms.sailors[s.id] = { stopped: false, count: 0 };
+    if (results[s.id] !== undefined && !ms.running) {
+      ms.sailors[s.id].stopped = true;
+      ms.sailors[s.id].count = results[s.id];
+    }
+  });
+
+  const firstCue = getFirstCue(testName);
+  const secondCue = getSecondCue(testName);
+
+  let html = `
+    <div class="page-title">${title}</div>
+    <div class="page-subtitle">${subtitle}</div>
+    <div class="metronome-display" id="metro-${testName}">
+      <div class="bpm-label">BEATS PER MINUTE</div>
+      <div class="bpm-value" id="metroBpm-${testName}">${ms.bpm}</div>
+      <div class="bpm-control">
+        <button onclick="adjustBpm('${testName}',-5)">−</button>
+        <input type="number" id="bpmInput-${testName}" value="${ms.bpm}" min="10" max="120"
+          onchange="setBpm('${testName}', this.value)" style="color:white;background:transparent;border-color:#555">
+        <button onclick="adjustBpm('${testName}',5)">+</button>
+      </div>
+      <div class="rep-count">Rep: <span id="metroRep-${testName}">${ms.repCount}</span></div>
+      <div class="cue-word" id="metroCue-${testName}">${ms.running ? '' : firstCue + ' / ' + secondCue}</div>
+      <div class="clock-controls" style="margin-top:12px">
+        <button class="btn ${ms.running ? 'btn-danger' : 'btn-success'}" id="metroBtn-${testName}"
+          onclick="toggleMetronome('${testName}')">
+          ${ms.running ? '⏹ Stop Test' : '▶ Start Test'}
+        </button>
+        <button class="btn btn-secondary" onclick="resetMetronome('${testName}')">↺ Reset</button>
+      </div>
+    </div>
+    <div class="sailor-list" id="sailorList-${testName}">`;
+
+  if (roster.length === 0) {
+    html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded.</div>';
+  } else {
+    roster.forEach(s => {
+      const ss = ms.sailors[s.id] || { stopped: false, count: 0 };
+      html += `
+        <div class="sailor-row ${ss.stopped ? 'stopped' : ''}" id="row-${testName}-${s.id}">
+          <div>
+            <div class="sailor-name">${s.name}</div>
+            <div class="sailor-id">${s.id}</div>
+          </div>
+          <div class="sailor-count" id="count-${testName}-${s.id}">${ss.count}</div>
+          <button class="stop-btn ${ss.stopped ? 'stopped' : 'running'}" id="stopBtn-${testName}-${s.id}"
+            onclick="toggleSailorMetronome('${testName}','${s.id}')">
+            ${ss.stopped ? 'Resume' : 'Stop'}
+          </button>
+          <input class="override-input" type="number" min="0" placeholder="#"
+            id="override-${testName}-${s.id}"
+            onchange="overrideCount('${testName}','${s.id}', this.value)"
+            value="${ss.stopped ? ss.count : ''}" style="width:55px">
+        </div>`;
+    });
+  }
+  html += '</div>';
+  page.innerHTML = html;
+}
+
+function adjustBpm(testName, delta) {
+  const ms = metronomeStates[testName];
+  if (ms.running) return;
+  ms.bpm = Math.max(10, Math.min(120, ms.bpm + delta));
+  document.getElementById('metroBpm-' + testName).textContent = ms.bpm;
+  document.getElementById('bpmInput-' + testName).value = ms.bpm;
+}
+
+function setBpm(testName, val) {
+  const ms = metronomeStates[testName];
+  if (ms.running) return;
+  ms.bpm = Math.max(10, Math.min(120, parseInt(val) || 40));
+  document.getElementById('metroBpm-' + testName).textContent = ms.bpm;
+}
+
+function toggleMetronome(testName) {
+  const ms = metronomeStates[testName];
+  if (ms.running) {
+    stopMetronome(testName);
+  } else {
+    startMetronome(testName);
+  }
+}
+
+function startMetronome(testName) {
+  const ms = metronomeStates[testName];
+  ms.running = true;
+  ms.repCount = 0;
+  ms.cuePhase = 0;
+
+  // Reset all sailor counts
+  getRoster().forEach(s => {
+    if (ms.sailors[s.id]) {
+      ms.sailors[s.id].stopped = false;
+      ms.sailors[s.id].count = 0;
+    }
+  });
+
+  // Update UI
+  const btn = document.getElementById('metroBtn-' + testName);
+  btn.className = 'btn btn-danger';
+  btn.textContent = '⏹ Stop Test';
+
+  // Voice countdown
+  const firstCue = getFirstCue(testName);
+  const cueInterval = (60 / ms.bpm / 2) * 1000; // ms between cues
+
+  speak('Test commencing. Adopt start position.');
+  setTimeout(() => speak('Starting in'), 2500);
+  setTimeout(() => speak('5'), 3500);
+  setTimeout(() => speak('4'), 4500);
+  setTimeout(() => speak('3'), 5500);
+  setTimeout(() => speak('2'), 6500);
+  setTimeout(() => speak('1'), 7500);
+
+  // Start metronome after countdown
+  setTimeout(() => {
+    if (!ms.running) return;
+    metronomeTick(testName);
+    ms.intervalId = setInterval(() => metronomeTick(testName), cueInterval);
+  }, 8000);
+
+  // Rebuild sailor list UI
+  renderMetronomePage(testName, getTestTitle(testName), getTestSubtitle(testName));
+  // Re-set running state after rebuild
+  metronomeStates[testName] = ms;
+  setTimeout(() => {
+    const btn2 = document.getElementById('metroBtn-' + testName);
+    if (btn2) { btn2.className = 'btn btn-danger'; btn2.textContent = '⏹ Stop Test'; }
+  }, 50);
+}
+
+function metronomeTick(testName) {
+  const ms = metronomeStates[testName];
+  if (!ms.running) return;
+
+  const firstCue = getFirstCue(testName);
+  const secondCue = getSecondCue(testName);
+
+  let cueWord;
+  if (ms.cuePhase === 0) {
+    cueWord = firstCue;
+    ms.cuePhase = 1;
+  } else {
+    cueWord = secondCue;
+    ms.cuePhase = 0;
+    // A rep is completed on the second cue
+    ms.repCount++;
+    // Increment all active sailors
+    getRoster().forEach(s => {
+      const ss = ms.sailors[s.id];
+      if (ss && !ss.stopped) {
+        ss.count = ms.repCount;
+        const countEl = document.getElementById('count-' + testName + '-' + s.id);
+        if (countEl) countEl.textContent = ss.count;
+      }
+    });
+  }
+
+  // Update display
+  const repEl = document.getElementById('metroRep-' + testName);
+  if (repEl) repEl.textContent = ms.repCount;
+  const cueEl = document.getElementById('metroCue-' + testName);
+  if (cueEl) {
+    cueEl.textContent = cueWord;
+    cueEl.style.color = cueWord === firstCue ? '#FF6B6B' : '#69DB7C';
+  }
+
+  // Speak cue
+  speak(cueWord);
+
+  // Beep
+  playBeep(cueWord === firstCue ? 440 : 660);
+}
+
+function stopMetronome(testName) {
+  const ms = metronomeStates[testName];
+  ms.running = false;
+  if (ms.intervalId) { clearInterval(ms.intervalId); ms.intervalId = null; }
+  const btn = document.getElementById('metroBtn-' + testName);
+  if (btn) { btn.className = 'btn btn-success'; btn.textContent = '▶ Start Test'; }
+  const cueEl = document.getElementById('metroCue-' + testName);
+  if (cueEl) { cueEl.textContent = 'DONE'; cueEl.style.color = 'white'; }
+
+  // Save all active sailor counts as results
+  getRoster().forEach(s => {
+    const ss = ms.sailors[s.id];
+    if (ss && ss.count > 0) {
+      ss.stopped = true;
+      setResult(testName, s.id, ss.count);
+    }
+  });
+}
+
+function resetMetronome(testName) {
+  if (!confirm('Reset metronome and all counts?')) return;
+  const ms = metronomeStates[testName];
+  if (ms.intervalId) clearInterval(ms.intervalId);
+  delete metronomeStates[testName];
+  if (state.currentSquad && state.results[state.currentSquad]) {
+    delete state.results[state.currentSquad][testName];
+    saveState();
+  }
+  renderMetronomePage(testName, getTestTitle(testName), getTestSubtitle(testName));
+}
+
+function toggleSailorMetronome(testName, sailorId) {
+  const ms = metronomeStates[testName];
+  if (!ms.sailors[sailorId]) ms.sailors[sailorId] = { stopped: false, count: 0 };
+  const ss = ms.sailors[sailorId];
+
+  if (ss.stopped) {
+    // Resume — pick up from current global rep count
+    ss.stopped = false;
+    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    if (row) row.classList.remove('stopped');
+    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    if (btn) { btn.textContent = 'Stop'; btn.className = 'stop-btn running'; }
+    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    if (ov) ov.value = '';
+    if (state.currentSquad && state.results[state.currentSquad]?.[testName]) {
+      delete state.results[state.currentSquad][testName][sailorId];
+      saveState();
+    }
+  } else {
+    // Stop — freeze count
+    ss.stopped = true;
+    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    if (row) row.classList.add('stopped');
+    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    if (ov) ov.value = ss.count;
+    setResult(testName, sailorId, ss.count);
+  }
+}
+
+function overrideCount(testName, sailorId, val) {
+  const count = parseInt(val);
+  if (isNaN(count) || count < 0) { showToast('Invalid count'); return; }
+  const ms = metronomeStates[testName];
+  if (!ms.sailors[sailorId]) ms.sailors[sailorId] = { stopped: false, count: 0 };
+  ms.sailors[sailorId].stopped = true;
+  ms.sailors[sailorId].count = count;
+  const row = document.getElementById('row-' + testName + '-' + sailorId);
+  if (row) row.classList.add('stopped');
+  const countEl = document.getElementById('count-' + testName + '-' + sailorId);
+  if (countEl) countEl.textContent = count;
+  const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+  if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+  setResult(testName, sailorId, count);
+}
+
+// ==================== AUDIO ====================
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playBeep(freq) {
+  try {
+    const ctx = getAudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = freq;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.1);
+  } catch(e) {}
+}
+
+function speak(text) {
+  try {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1.2;
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+  } catch(e) {}
+}
+
+// ==================== BROAD JUMP ====================
+function renderBroadJumpPage() {
+  const page = document.getElementById('page-broadjump');
+  const roster = getRoster();
+  const results = getResults('broadjump');
+
+  let html = `
+    <div class="page-title">Standing Broad Jump</div>
+    <div class="page-subtitle">Enter distance in centimetres</div>
+    <div class="sailor-list">`;
+
+  if (roster.length === 0) {
+    html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded.</div>';
+  } else {
+    roster.forEach(s => {
+      const val = results[s.id] || '';
+      html += `
+        <div class="sailor-row">
+          <div>
+            <div class="sailor-name">${s.name}</div>
+            <div class="sailor-id">${s.id}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <input class="jump-input" type="number" min="0" step="1" placeholder="cm"
+              value="${val}"
+              onchange="setResult('broadjump','${s.id}', parseInt(this.value) || 0)">
+            <span class="text-sm text-muted">cm</span>
+          </div>
+        </div>`;
+    });
+  }
+  html += '</div>';
+  page.innerHTML = html;
+}
+
+// ==================== REPORT ====================
+function renderReportPage() {
+  const page = document.getElementById('page-report');
+  if (!state.currentSquad) {
+    page.innerHTML = '<div class="page-title">Squad Report</div><div class="text-center text-muted" style="padding:40px">Select a squad first</div>';
+    return;
+  }
+
+  const squad = state.currentSquad;
+  const roster = getRoster();
+  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+
+  let html = `
+    <div class="page-title">Squad Report — ${squad}</div>
+    <div class="page-subtitle">${state.testDate} · ${roster.length} sailors</div>
+    <button class="btn btn-primary btn-block mb-16" onclick="generatePDF()">📄 Download PDF Report</button>
+    <div class="card">
+      <div class="card-title">Summary</div>`;
+
+  allTests.forEach(testName => {
+    const results = getResults(testName);
+    const entries = Object.entries(results).filter(([id, v]) => v !== undefined && v !== null && v !== 0);
+    if (entries.length === 0) return;
+
+    const values = entries.map(([id, v]) => typeof v === 'number' ? v : 0);
+    const maleVals = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'M').map(([,v]) => v);
+    const femaleVals = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'F').map(([,v]) => v);
+
+    const stats = calcStats(values);
+    const maleStats = maleVals.length > 0 ? calcStats(maleVals) : null;
+    const femaleStats = femaleVals.length > 0 ? calcStats(femaleVals) : null;
+
+    const isTime = isTimedTest(testName);
+    const unit = getUnit(testName);
+    const formatVal = v => isTime ? formatTime(v) : v + unit;
+
+    html += `
+      <div class="report-test-section">
+        <div class="report-test-title">${getTestTitle(testName)} <span class="text-sm text-muted">(N=${entries.length})</span></div>
+        <div class="text-sm text-muted mb-8">
+          Mean: ${formatVal(Math.round(stats.mean))} · Min: ${formatVal(stats.min)} · Max: ${formatVal(stats.max)}
+        </div>`;
+
+    if (maleStats) {
+      html += `<div class="text-sm" style="color:var(--blue);margin-bottom:4px">♂ Mean: ${formatVal(Math.round(maleStats.mean))} · Min: ${formatVal(maleStats.min)} · Max: ${formatVal(maleStats.max)}</div>`;
+    }
+    if (femaleStats) {
+      html += `<div class="text-sm" style="color:var(--red);margin-bottom:4px">♀ Mean: ${formatVal(Math.round(femaleStats.mean))} · Min: ${formatVal(femaleStats.min)} · Max: ${formatVal(femaleStats.max)}</div>`;
+    }
+    html += '</div>';
+  });
+
+  html += '</div></div>';
+  page.innerHTML = html;
+}
+
+function calcStats(values) {
+  if (values.length === 0) return { mean: 0, min: 0, max: 0, q1: 0, q2: 0, q3: 0 };
+  const sorted = [...values].sort((a, b) => a - b);
+  const n = sorted.length;
+  return {
+    mean: sorted.reduce((a, b) => a + b, 0) / n,
+    min: sorted[0],
+    max: sorted[n - 1],
+    q1: percentile(sorted, 25),
+    q2: percentile(sorted, 50),
+    q3: percentile(sorted, 75)
+  };
+}
+
+function percentile(sorted, p) {
+  const idx = (p / 100) * (sorted.length - 1);
+  const lower = Math.floor(idx);
+  const upper = Math.ceil(idx);
+  if (lower === upper) return sorted[lower];
+  return sorted[lower] + (sorted[upper] - sorted[lower]) * (idx - lower);
+}
+
+// ==================== PDF GENERATION ====================
+function generatePDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  const squad = state.currentSquad;
+  const roster = getRoster();
+  const pageW = 210;
+  const margin = 15;
+  const contentW = pageW - 2 * margin;
+  let y = margin;
+
+  // Header
+  doc.setFillColor(214, 113, 78);
+  doc.rect(0, 0, pageW, 28, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18);
+  doc.setFont(undefined, 'bold');
+  doc.text('Sail Fit — Squad Report', margin, 12);
+  doc.setFontSize(11);
+  doc.setFont(undefined, 'normal');
+  doc.text(`${squad} · ${state.testDate} · ${roster.length} sailors`, margin, 20);
+  y = 36;
+
+  doc.setTextColor(30, 30, 30);
+
+  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+
+  allTests.forEach(testName => {
+    const results = getResults(testName);
+    const entries = Object.entries(results).filter(([id, v]) => v !== undefined && v !== null && v !== 0);
+    if (entries.length === 0) return;
+
+    if (y > 250) { doc.addPage(); y = margin; }
+
+    const values = entries.map(([, v]) => v);
+    const maleEntries = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'M');
+    const femaleEntries = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'F');
+    const maleVals = maleEntries.map(([,v]) => v);
+    const femaleVals = femaleEntries.map(([,v]) => v);
+
+    const stats = calcStats(values);
+    const maleStats = maleVals.length > 0 ? calcStats(maleVals) : null;
+    const femaleStats = femaleVals.length > 0 ? calcStats(femaleVals) : null;
+
+    const isTime = isTimedTest(testName);
+    const unit = getUnit(testName);
+    const formatVal = v => isTime ? formatTime(v) : Math.round(v) + unit;
+
+    // Test title
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${getTestTitle(testName)}  (N=${entries.length})`, margin, y);
+    y += 6;
+
+    // Draw bar chart
+    const barH = 7;
+    const barGap = 2;
+
+    // For timed tests, lower is better — invert the scale
+    const allVals = values;
+    const globalMin = Math.min(...allVals);
+    const globalMax = Math.max(...allVals);
+    const range = globalMax - globalMin || 1;
+
+    function valToX(v) {
+      return margin + ((v - globalMin) / range) * contentW;
+    }
+
+    // Overall bar
+    drawBar(doc, 'Overall', stats, globalMin, range, margin, y, contentW, barH, [180, 180, 180], formatVal);
+    y += barH + barGap + 5;
+
+    // Male bar
+    if (maleStats) {
+      drawBar(doc, 'Male', maleStats, globalMin, range, margin, y, contentW, barH, [74, 125, 201], formatVal);
+      y += barH + barGap + 5;
+    }
+
+    // Female bar
+    if (femaleStats) {
+      drawBar(doc, 'Female', femaleStats, globalMin, range, margin, y, contentW, barH, [212, 84, 84], formatVal);
+      y += barH + barGap + 5;
+    }
+
+    // Stats text
+    doc.setFontSize(8);
+    doc.setFont(undefined, 'normal');
+    doc.setTextColor(100, 100, 100);
+    let statText = `Mean: ${formatVal(Math.round(stats.mean))} | Min: ${formatVal(stats.min)} | Max: ${formatVal(stats.max)} | Q1: ${formatVal(Math.round(stats.q1))} | Q2: ${formatVal(Math.round(stats.q2))} | Q3: ${formatVal(Math.round(stats.q3))}`;
+    doc.text(statText, margin, y);
+    y += 10;
+    doc.setTextColor(30, 30, 30);
+  });
+
+  doc.save(`sailfit_${squad}_${state.testDate}.pdf`);
+  showToast('PDF downloaded');
+}
+
+function drawBar(doc, label, stats, globalMin, range, x, y, w, h, color, formatVal) {
+  // Label
+  doc.setFontSize(8);
+  doc.setFont(undefined, 'bold');
+  doc.setTextColor(color[0], color[1], color[2]);
+  doc.text(label, x, y);
+  y += 1;
+
+  // Background track
+  doc.setFillColor(240, 235, 229);
+  doc.roundedRect(x, y, w, h, 1, 1, 'F');
+
+  // Range bar (min to max)
+  const minX = x + ((stats.min - globalMin) / range) * w;
+  const maxX = x + ((stats.max - globalMin) / range) * w;
+  doc.setFillColor(color[0], color[1], color[2]);
+  doc.setGState(new doc.GState({ opacity: 0.25 }));
+  doc.rect(minX, y, maxX - minX, h, 'F');
+  doc.setGState(new doc.GState({ opacity: 1 }));
+
+  // Quartile markers
+  if (stats.q1 !== undefined) {
+    const q1X = x + ((stats.q1 - globalMin) / range) * w;
+    const q3X = x + ((stats.q3 - globalMin) / range) * w;
+    doc.setFillColor(color[0], color[1], color[2]);
+    doc.setGState(new doc.GState({ opacity: 0.4 }));
+    doc.rect(q1X, y, q3X - q1X, h, 'F');
+    doc.setGState(new doc.GState({ opacity: 1 }));
+  }
+
+  // Mean marker
+  const meanX = x + ((stats.mean - globalMin) / range) * w;
+  doc.setFillColor(color[0], color[1], color[2]);
+  doc.rect(meanX - 0.5, y - 0.5, 1, h + 1, 'F');
+
+  // Mean label
+  doc.setFontSize(6);
+  doc.setTextColor(color[0], color[1], color[2]);
+  doc.text(formatVal(Math.round(stats.mean)), meanX, y + h + 3, { align: 'center' });
+}
+
+// ==================== CSV EXPORT ====================
+function exportCSV() {
+  const squad = state.currentSquad;
+  if (!squad) { showToast('Select a squad first'); return; }
+  const roster = getRoster();
+  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+
+  let csv = 'Date,Squad,Sailor ID,Name,Gender,YOB,Test,Result,Unit\n';
+
+  roster.forEach(s => {
+    allTests.forEach(testName => {
+      const results = getResults(testName);
+      if (results[s.id] !== undefined && results[s.id] !== null && results[s.id] !== 0) {
+        const isTime = isTimedTest(testName);
+        const val = isTime ? formatTime(results[s.id]) : results[s.id];
+        const unit = isTime ? 'time' : getUnit(testName);
+        csv += `${state.testDate},${squad},${s.id},${s.name},${s.gender},${s.yob},${getTestTitle(testName)},${val},${unit}\n`;
+      }
+    });
+  });
+
+  downloadFile(`sailfit_${squad}_${state.testDate}.csv`, csv, 'text/csv');
+  showToast('CSV exported');
+}
+
+function autoBackupCSV() {
+  try {
+    const squad = state.currentSquad;
+    if (!squad) return;
+    const roster = getRoster();
+    if (roster.length === 0) return;
+    const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+    let hasData = false;
+    allTests.forEach(t => { if (Object.keys(getResults(t)).length > 0) hasData = true; });
+    if (!hasData) return;
+    exportCSV();
+  } catch(e) {}
+}
+
+function downloadFile(filename, content, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ==================== HELPERS ====================
+function getTestTitle(testName) {
+  const titles = {
+    run5k: '5km Run',
+    run18k: '1.8km Run',
+    run27k: '2.7km Run',
+    pushup: 'Push-up',
+    pullup: 'Pull-up',
+    inclinepullup: 'Incline Pull-up',
+    broadjump: 'Standing Broad Jump',
+    plank: 'Plank',
+    shuttle: 'Shuttle Agility Run'
+  };
+  return titles[testName] || testName;
+}
+
+function getTestSubtitle(testName) {
+  const subs = {
+    run5k: 'ILCA & 29er — Tap Stop as each sailor crosses the finish line',
+    run18k: 'Optimist — Tap Stop as each sailor crosses the finish line',
+    run27k: 'Optimist — Tap Stop as each sailor crosses the finish line',
+    pushup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
+    pullup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
+    inclinepullup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
+    plank: 'Tap Stop when a sailor breaks form',
+    shuttle: '29er — Tap Stop as each sailor finishes'
+  };
+  return subs[testName] || '';
+}
+
+function isTimedTest(testName) {
+  return ['run5k','run18k','run27k','plank','shuttle'].includes(testName);
+}
+
+function getUnit(testName) {
+  if (isTimedTest(testName)) return '';
+  if (testName === 'broadjump') return ' cm';
+  return ' reps';
+}
+
+function renderPage(page) {
+  if (['run5k','run18k','run27k','plank','shuttle'].includes(page)) {
+    renderTimerPage(page, getTestTitle(page), getTestSubtitle(page));
+  } else if (['pushup','pullup','inclinepullup'].includes(page)) {
+    renderMetronomePage(page, getTestTitle(page), getTestSubtitle(page));
+  } else if (page === 'broadjump') {
+    renderBroadJumpPage();
+  } else if (page === 'report') {
+    renderReportPage();
+  }
+}
+
+// ==================== INIT ====================
+loadState();
+updateSquadCounts();
+
+// Restore squad selection
+if (state.currentSquad) {
+  selectSquad(state.currentSquad);
+}
+
+// Set date
+document.getElementById('testDate').value = state.testDate;
+
+// Auto-save on page unload
+window.addEventListener('beforeunload', function(e) {
+  saveState();
+  autoBackupCSV();
+});
+
+// Periodic save
+setInterval(saveState, 10000);
+</script>
+</body>
+</html>
