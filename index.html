@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Sailing Fitness Testing</title>
+<title>Sail Fit</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -37,13 +37,11 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== HEADER ===== */
 .header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: var(--card);
   border-bottom: 1px solid var(--border);
-  padding: 0 16px;
-  height: 56px;
+  padding: 0 16px; height: 56px;
   display: flex; align-items: center; justify-content: space-between;
   box-shadow: var(--shadow);
 }
@@ -53,43 +51,34 @@ body {
 }
 .header-title .logo {
   width: 24px; height: 24px;
-  background: var(--accent);
-  border-radius: 6px;
+  background: var(--accent); border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
   color: white; font-weight: 700; font-size: 12px;
 }
 .header-squad {
   font-size: 13px; color: var(--text-secondary);
   background: var(--accent-light);
-  padding: 4px 10px; border-radius: 20px;
-  font-weight: 500;
+  padding: 4px 10px; border-radius: 20px; font-weight: 500;
 }
 .menu-btn {
   background: none; border: none; cursor: pointer;
   width: 40px; height: 40px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 20px;
+  border-radius: 8px; color: var(--text); font-size: 20px;
 }
 .menu-btn:hover { background: var(--accent-light); }
 
-/* ===== NAV DRAWER ===== */
 .nav-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.3);
-  z-index: 200; opacity: 0; pointer-events: none;
-  transition: opacity 0.2s;
+  z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.2s;
 }
 .nav-overlay.open { opacity: 1; pointer-events: auto; }
 .nav-drawer {
   position: fixed; top: 0; right: 0; bottom: 0;
   width: 280px; max-width: 80vw;
-  background: var(--card);
-  z-index: 201;
-  transform: translateX(100%);
-  transition: transform 0.25s ease;
-  padding: 20px 0;
-  overflow-y: auto;
+  background: var(--card); z-index: 201;
+  transform: translateX(100%); transition: transform 0.25s ease;
+  padding: 20px 0; overflow-y: auto;
 }
 .nav-overlay.open .nav-drawer { transform: translateX(0); }
 .nav-section { padding: 8px 16px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
@@ -104,31 +93,23 @@ body {
 .nav-item .nav-icon { width: 20px; text-align: center; font-size: 16px; }
 .nav-divider { height: 1px; background: var(--border); margin: 8px 16px; }
 
-/* ===== MAIN CONTENT ===== */
 .main { padding-top: 56px; min-height: 100vh; }
 .page { display: none; padding: 20px 16px 100px; max-width: 600px; margin: 0 auto; }
 .page.active { display: block; }
 .page-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
 .page-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
 
-/* ===== CARDS ===== */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
   box-shadow: var(--shadow);
 }
 .card-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
 
-/* ===== BUTTONS ===== */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 10px 20px;
-  border: none; border-radius: var(--radius); cursor: pointer;
-  font-family: var(--sans); font-size: 14px; font-weight: 600;
-  transition: all 0.15s;
+  padding: 10px 20px; border: none; border-radius: var(--radius); cursor: pointer;
+  font-family: var(--sans); font-size: 14px; font-weight: 600; transition: all 0.15s;
 }
 .btn-primary { background: var(--accent); color: white; }
 .btn-primary:hover { background: var(--accent-hover); }
@@ -142,46 +123,33 @@ body {
 .btn-block { width: 100%; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ===== FORMS ===== */
 input, select, textarea {
   font-family: var(--sans); font-size: 14px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--card);
-  color: var(--text);
-  width: 100%;
-  transition: border-color 0.15s;
+  padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--card);
+  color: var(--text); width: 100%; transition: border-color 0.15s;
 }
 input:focus, select:focus { outline: none; border-color: var(--accent); }
 label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text-secondary); }
 .form-group { margin-bottom: 12px; }
 
-/* ===== TIMER DISPLAY ===== */
 .master-clock {
   text-align: center; padding: 20px;
   background: var(--text); color: white;
-  border-radius: var(--radius);
-  margin-bottom: 16px;
+  border-radius: var(--radius); margin-bottom: 16px;
 }
 .master-clock .time {
-  font-family: var(--mono);
-  font-size: 48px; font-weight: 500;
-  letter-spacing: 2px;
+  font-family: var(--mono); font-size: 48px; font-weight: 500; letter-spacing: 2px;
 }
 .master-clock .label { font-size: 12px; color: #999; margin-bottom: 4px; }
 .clock-controls { display: flex; gap: 8px; margin-top: 12px; justify-content: center; }
 
-/* ===== SAILOR ROW ===== */
 .sailor-list { margin-top: 12px; }
 .sailor-row {
   display: flex; align-items: center; gap: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 6px;
-  background: var(--card);
-  transition: background 0.15s;
+  padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: 6px;
+  background: var(--card); transition: background 0.15s;
 }
 .sailor-row.stopped { background: #FFF8F0; border-color: var(--accent); }
 .sailor-row .sailor-name {
@@ -189,26 +157,22 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
   min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .sailor-row .sailor-id {
-  font-size: 11px; color: var(--text-secondary);
-  font-family: var(--mono);
+  font-size: 11px; color: var(--text-secondary); font-family: var(--mono);
 }
 .sailor-row .sailor-time {
   font-family: var(--mono); font-size: 16px; font-weight: 500;
-  min-width: 75px; text-align: right;
-  color: var(--text-secondary);
+  min-width: 75px; text-align: right; color: var(--text-secondary);
 }
 .sailor-row.stopped .sailor-time { color: var(--accent); font-weight: 700; }
 .sailor-row .sailor-count {
   font-family: var(--mono); font-size: 20px; font-weight: 700;
-  min-width: 40px; text-align: center;
-  color: var(--text-secondary);
+  min-width: 40px; text-align: center; color: var(--text-secondary);
 }
 .sailor-row.stopped .sailor-count { color: var(--accent); }
 .stop-btn {
   padding: 6px 14px; border: none; border-radius: 6px;
   font-family: var(--sans); font-size: 12px; font-weight: 600;
-  cursor: pointer; transition: all 0.15s;
-  min-width: 64px;
+  cursor: pointer; transition: all 0.15s; min-width: 64px;
 }
 .stop-btn.running { background: var(--danger); color: white; }
 .stop-btn.stopped { background: var(--success); color: white; }
@@ -218,24 +182,19 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
   text-align: center;
 }
 
-/* ===== METRONOME ===== */
 .metronome-display {
   text-align: center; padding: 24px;
   background: var(--text); color: white;
-  border-radius: var(--radius);
-  margin-bottom: 16px;
+  border-radius: var(--radius); margin-bottom: 16px;
 }
-.metronome-display .bpm-value {
-  font-family: var(--mono); font-size: 56px; font-weight: 500;
-}
+.metronome-display .bpm-value { font-family: var(--mono); font-size: 56px; font-weight: 500; }
 .metronome-display .bpm-label { font-size: 12px; color: #999; }
 .metronome-display .rep-count {
   font-family: var(--mono); font-size: 32px; font-weight: 500;
   margin-top: 8px; color: var(--accent);
 }
 .metronome-display .cue-word {
-  font-size: 28px; font-weight: 700;
-  margin-top: 8px; min-height: 40px;
+  font-size: 28px; font-weight: 700; margin-top: 8px; min-height: 40px;
 }
 .bpm-control {
   display: flex; align-items: center; gap: 12px;
@@ -252,23 +211,17 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
   font-family: var(--mono); font-size: 18px; font-weight: 600;
 }
 
-/* ===== BROAD JUMP ===== */
 .jump-input {
   width: 80px !important; text-align: center;
   font-family: var(--mono) !important; font-size: 16px !important;
   padding: 8px !important;
 }
 
-/* ===== SETUP ===== */
 .squad-cards { display: flex; gap: 10px; flex-wrap: wrap; }
 .squad-card {
-  flex: 1; min-width: 120px;
-  padding: 20px 16px; text-align: center;
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  cursor: pointer;
-  background: var(--card);
-  transition: all 0.15s;
+  flex: 1; min-width: 120px; padding: 20px 16px; text-align: center;
+  border: 2px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; background: var(--card); transition: all 0.15s;
 }
 .squad-card:hover { border-color: var(--accent); background: var(--accent-light); }
 .squad-card.selected { border-color: var(--accent); background: var(--accent-light); }
@@ -281,37 +234,13 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
   text-transform: uppercase; letter-spacing: 0.5px;
   color: var(--text-secondary); border-bottom: 2px solid var(--border);
 }
-.roster-table td {
-  padding: 8px; border-bottom: 1px solid var(--border);
-}
+.roster-table td { padding: 8px; border-bottom: 1px solid var(--border); }
 .roster-table .gender-m { color: var(--blue); font-weight: 600; }
 .roster-table .gender-f { color: var(--red); font-weight: 600; }
 
-/* ===== REPORT ===== */
-.report-preview { padding: 16px; }
-.report-test-section { margin-bottom: 20px; }
-.report-test-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-.bar-chart-container { margin-bottom: 6px; }
-.bar-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 2px; font-weight: 500; }
-.bar-track {
-  height: 24px; background: #F0EBE5;
-  border-radius: 4px; position: relative;
-  overflow: hidden;
-}
-.bar-range {
-  position: absolute; top: 2px; bottom: 2px;
-  border-radius: 3px;
-}
-.bar-marker {
-  position: absolute; top: 0; bottom: 0; width: 2px;
-  transform: translateX(-50%);
-}
-
-/* ===== UTILITIES ===== */
 .flex { display: flex; }
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 .gap-8 { gap: 8px; }
-.gap-12 { gap: 12px; }
 .mt-8 { margin-top: 8px; }
 .mt-12 { margin-top: 12px; }
 .mt-16 { margin-top: 16px; }
@@ -322,40 +251,27 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
 .text-muted { color: var(--text-secondary); }
 .hidden { display: none !important; }
 
-/* ===== TOAST ===== */
 .toast {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   background: var(--text); color: white;
   padding: 10px 20px; border-radius: 8px;
   font-size: 13px; font-weight: 500;
-  z-index: 300; opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
+  z-index: 300; opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
 .toast.show { opacity: 1; }
 
-/* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ===== FILE INPUT ===== */
 .file-drop {
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 24px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.15s;
+  border: 2px dashed var(--border); border-radius: var(--radius);
+  padding: 24px; text-align: center; cursor: pointer; transition: all 0.15s;
 }
 .file-drop:hover { border-color: var(--accent); background: var(--accent-light); }
 .file-drop input { display: none; }
 .file-drop .icon { font-size: 28px; margin-bottom: 8px; }
 .file-drop .text { font-size: 13px; color: var(--text-secondary); }
-
-/* ===== ANIMATIONS ===== */
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-.pulsing { animation: pulse 1s infinite; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .page.active { animation: fadeIn 0.2s ease; }
@@ -363,75 +279,69 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-title">
     <div class="logo">S</div>
     <span>Sail Fit</span>
   </div>
   <div id="headerSquad" class="header-squad hidden"></div>
-  <button class="menu-btn" onclick="toggleNav()">☰</button>
+  <button class="menu-btn" onclick="toggleNav()">&#9776;</button>
 </div>
 
-<!-- NAV DRAWER -->
 <div class="nav-overlay" id="navOverlay" onclick="closeNav()">
   <div class="nav-drawer" onclick="event.stopPropagation()">
     <div class="nav-section">Setup</div>
     <div class="nav-item active" data-page="setup" onclick="goTo('setup')">
-      <span class="nav-icon">⚙️</span> Squad & Roster
+      <span class="nav-icon">&#9881;&#65039;</span> Squad & Roster
     </div>
     <div class="nav-divider"></div>
     <div class="nav-section">Timer Tests</div>
     <div class="nav-item" data-page="run5k" onclick="goTo('run5k')">
-      <span class="nav-icon">🏃</span> 5km Run
+      <span class="nav-icon">&#127939;</span> 5km Run
     </div>
     <div class="nav-item" data-page="run18k" onclick="goTo('run18k')">
-      <span class="nav-icon">🏃</span> 1.8km Run
+      <span class="nav-icon">&#127939;</span> 1.8km Run
     </div>
     <div class="nav-item" data-page="run27k" onclick="goTo('run27k')">
-      <span class="nav-icon">🏃</span> 2.7km Run
+      <span class="nav-icon">&#127939;</span> 2.7km Run
     </div>
     <div class="nav-item" data-page="plank" onclick="goTo('plank')">
-      <span class="nav-icon">💪</span> Plank
+      <span class="nav-icon">&#128170;</span> Plank
     </div>
     <div class="nav-item" data-page="shuttle" onclick="goTo('shuttle')">
-      <span class="nav-icon">🔀</span> Shuttle Agility Run
+      <span class="nav-icon">&#128256;</span> Shuttle Agility Run
     </div>
     <div class="nav-divider"></div>
     <div class="nav-section">Metronome Tests</div>
     <div class="nav-item" data-page="pushup" onclick="goTo('pushup')">
-      <span class="nav-icon">🫸</span> Push-up
+      <span class="nav-icon">&#129308;</span> Push-up
     </div>
     <div class="nav-item" data-page="pullup" onclick="goTo('pullup')">
-      <span class="nav-icon">🧗</span> Pull-up
+      <span class="nav-icon">&#129495;</span> Pull-up
     </div>
     <div class="nav-item" data-page="inclinepullup" onclick="goTo('inclinepullup')">
-      <span class="nav-icon">🧗</span> Incline Pull-up
+      <span class="nav-icon">&#129495;</span> Incline Pull-up
     </div>
     <div class="nav-divider"></div>
     <div class="nav-section">Other Tests</div>
     <div class="nav-item" data-page="broadjump" onclick="goTo('broadjump')">
-      <span class="nav-icon">📏</span> Standing Broad Jump
+      <span class="nav-icon">&#128207;</span> Standing Broad Jump
     </div>
     <div class="nav-divider"></div>
     <div class="nav-section">Data</div>
     <div class="nav-item" data-page="report" onclick="goTo('report')">
-      <span class="nav-icon">📊</span> Squad Report
+      <span class="nav-icon">&#128202;</span> Squad Report
     </div>
     <div class="nav-item" onclick="exportCSV()">
-      <span class="nav-icon">💾</span> Export CSV
+      <span class="nav-icon">&#128190;</span> Export CSV
     </div>
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
-
-  <!-- ===== SETUP PAGE ===== -->
   <div class="page active" id="page-setup">
     <div class="page-title">Squad Setup</div>
     <div class="page-subtitle">Select a squad and upload the sailor roster</div>
-
     <div class="card">
       <div class="card-title">Select Squad</div>
       <div class="squad-cards">
@@ -449,13 +359,11 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
         </div>
       </div>
     </div>
-
     <div id="rosterSection" class="hidden">
       <div class="card">
         <div class="card-title">Test Date</div>
         <input type="date" id="testDate" onchange="saveState()">
       </div>
-
       <div class="card">
         <div class="flex-between mb-8">
           <div class="card-title" style="margin-bottom:0">Roster — <span id="rosterSquadName"></span></div>
@@ -463,67 +371,58 @@ label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; c
         </div>
         <div class="file-drop" onclick="document.getElementById('rosterFile').click()">
           <input type="file" id="rosterFile" accept=".csv" onchange="handleRosterUpload(event)">
-          <div class="icon">📄</div>
-          <div class="text">Upload CSV (Sailor ID, Name, Date of Birth, Gender)<br>
-          <strong>Example:</strong> 001, John Doe, M, 2010</div>
+          <div class="icon">&#128196;</div>
+          <div class="text">Upload SSF Members Report CSV<br>
+          <strong>Columns:</strong> Sailor ID, Name, Date of Birth, Gender</div>
         </div>
         <div id="rosterTableContainer" class="mt-12"></div>
       </div>
     </div>
   </div>
 
-  <!-- ===== TIMER TEST PAGES ===== -->
   <div class="page" id="page-run5k"></div>
   <div class="page" id="page-run18k"></div>
   <div class="page" id="page-run27k"></div>
   <div class="page" id="page-plank"></div>
   <div class="page" id="page-shuttle"></div>
-
-  <!-- ===== METRONOME TEST PAGES ===== -->
   <div class="page" id="page-pushup"></div>
   <div class="page" id="page-pullup"></div>
   <div class="page" id="page-inclinepullup"></div>
-
-  <!-- ===== BROAD JUMP PAGE ===== -->
   <div class="page" id="page-broadjump"></div>
-
-  <!-- ===== REPORT PAGE ===== -->
   <div class="page" id="page-report"></div>
-
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ==================== STATE ====================
-const APP_KEY = 'sailfit_v1';
-let state = {
+var APP_KEY = 'sailfit_v3';
+var state = {
   currentSquad: null,
   testDate: new Date().toISOString().split('T')[0],
   rosters: { ILCA: [], '29er': [], Optimist: [] },
-  results: {} // { squadName: { testName: { sailorId: value } } }
+  results: {}
 };
-
-// Timer states (not persisted — ephemeral)
-let timerStates = {};
-let metronomeStates = {};
+var timerStates = {};
+var metronomeStates = {};
 
 function loadState() {
   try {
-    const saved = localStorage.getItem(APP_KEY);
+    var saved = localStorage.getItem(APP_KEY);
     if (saved) {
-      const parsed = JSON.parse(saved);
-      state = { ...state, ...parsed };
+      var parsed = JSON.parse(saved);
+      if (parsed.currentSquad) state.currentSquad = parsed.currentSquad;
+      if (parsed.testDate) state.testDate = parsed.testDate;
+      if (parsed.rosters) state.rosters = parsed.rosters;
+      if (parsed.results) state.results = parsed.results;
     }
-  } catch(e) { console.error('Load state error', e); }
+  } catch(e) { console.error('Load error', e); }
 }
 
 function saveState() {
-  state.testDate = document.getElementById('testDate')?.value || state.testDate;
-  try {
-    localStorage.setItem(APP_KEY, JSON.stringify(state));
-  } catch(e) { console.error('Save state error', e); }
+  var dateEl = document.getElementById('testDate');
+  if (dateEl && dateEl.value) state.testDate = dateEl.value;
+  try { localStorage.setItem(APP_KEY, JSON.stringify(state)); } catch(e) {}
 }
 
 function getResults(testName) {
@@ -545,37 +444,70 @@ function getRoster() {
   return state.currentSquad ? (state.rosters[state.currentSquad] || []) : [];
 }
 
+// ==================== CSV PARSING ====================
+function parseCSVLine(line) {
+  var parts = [];
+  var current = '';
+  var inQuotes = false;
+  for (var i = 0; i < line.length; i++) {
+    var ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && i + 1 < line.length && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === ',' && !inQuotes) {
+      parts.push(current.trim());
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  parts.push(current.trim());
+  return parts;
+}
+
+function parseCSVText(text) {
+  // Handle ALL line ending styles: \r\n, \r only, \n only
+  var lines = text.split(/\r\n|\r|\n/);
+  var result = [];
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].trim()) result.push(parseCSVLine(lines[i]));
+  }
+  return result;
+}
+
 // ==================== NAVIGATION ====================
-function toggleNav() {
-  document.getElementById('navOverlay').classList.toggle('open');
-}
-function closeNav() {
-  document.getElementById('navOverlay').classList.remove('open');
-}
+function toggleNav() { document.getElementById('navOverlay').classList.toggle('open'); }
+function closeNav() { document.getElementById('navOverlay').classList.remove('open'); }
 function goTo(page) {
   closeNav();
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const el = document.getElementById('page-' + page);
-  if (el) {
-    el.classList.add('active');
-    renderPage(page);
-  }
-  document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var items = document.querySelectorAll('.nav-item');
+  for (var i = 0; i < items.length; i++) items[i].classList.remove('active');
+  var el = document.getElementById('page-' + page);
+  if (el) { el.classList.add('active'); renderPage(page); }
+  var navEl = document.querySelector('.nav-item[data-page="' + page + '"]');
+  if (navEl) navEl.classList.add('active');
 }
 
 // ==================== TOAST ====================
 function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
 }
 
 // ==================== SETUP ====================
 function selectSquad(squad) {
   state.currentSquad = squad;
-  document.querySelectorAll('.squad-card').forEach(c => c.classList.toggle('selected', c.dataset.squad === squad));
+  var cards = document.querySelectorAll('.squad-card');
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('selected', cards[i].getAttribute('data-squad') === squad);
+  }
   document.getElementById('rosterSection').classList.remove('hidden');
   document.getElementById('rosterSquadName').textContent = squad;
   document.getElementById('headerSquad').textContent = squad;
@@ -586,60 +518,66 @@ function selectSquad(squad) {
 }
 
 function updateSquadCounts() {
-  ['ILCA', '29er', 'Optimist'].forEach(s => {
-    document.getElementById('count-' + s).textContent = (state.rosters[s]?.length || 0) + ' sailors';
-  });
+  var squads = ['ILCA', '29er', 'Optimist'];
+  for (var i = 0; i < squads.length; i++) {
+    var el = document.getElementById('count-' + squads[i]);
+    if (el) el.textContent = (state.rosters[squads[i]] ? state.rosters[squads[i]].length : 0) + ' sailors';
+  }
 }
 
 function handleRosterUpload(event) {
-  const file = event.target.files[0];
+  var file = event.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
+  var reader = new FileReader();
   reader.onload = function(e) {
-    const lines = e.target.result.replace(/\r/g, '').split('\n').filter(l => l.trim());
-    const roster = [];
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      // Parse CSV properly handling quoted fields
-      const parts = [];
-      let current = '';
-      let inQuotes = false;
-      for (let c = 0; c < line.length; c++) {
-        if (line[c] === '"') {
-          inQuotes = !inQuotes;
-        } else if (line[c] === ',' && !inQuotes) {
-          parts.push(current.trim());
-          current = '';
-        } else {
-          current += line[c];
-        }
-      }
-      parts.push(current.trim());
+    var text = e.target.result;
+    console.log('CSV raw length:', text.length);
+    console.log('CSV first 200 chars:', JSON.stringify(text.substring(0, 200)));
 
-      if (parts.length < 4) continue;
-      // Skip header row
-      if (i === 0 && isNaN(parseInt(parts[0]))) continue;
+    var rows = parseCSVText(text);
+    console.log('Parsed rows:', rows.length);
+    if (rows.length > 0) console.log('First row:', JSON.stringify(rows[0]));
+    if (rows.length > 1) console.log('Second row:', JSON.stringify(rows[1]));
 
-      // Column A: ID, B: Name, C: DOB, D: Gender
-      const dobStr = parts[2];
-      let yob = 2000;
-      if (dobStr.includes('-')) {
+    var roster = [];
+
+    for (var i = 0; i < rows.length; i++) {
+      var parts = rows[i];
+      if (parts.length < 4) { console.log('Skipping row ' + i + ': too few columns (' + parts.length + ')'); continue; }
+
+      // Skip header: if first field is not a number
+      if (i === 0 && isNaN(parseInt(parts[0]))) { console.log('Skipping header row'); continue; }
+
+      // Columns: A=Sailor ID, B=Name, C=Date of birth, D=Gender identity
+      var id = parts[0];
+      var name = parts[1];
+      var dobStr = parts[2];
+      var genderStr = parts[3];
+
+      // Extract year from DOB
+      var yob = 2000;
+      if (dobStr.indexOf('-') !== -1) {
         yob = parseInt(dobStr.split('-')[0]) || 2000;
-      } else if (dobStr.includes('/')) {
-        yob = parseInt(dobStr.split('/').pop()) || 2000;
+      } else if (dobStr.indexOf('/') !== -1) {
+        var dobParts = dobStr.split('/');
+        yob = parseInt(dobParts[dobParts.length - 1]) || 2000;
+        if (yob < 100) yob += 2000;
       } else {
         yob = parseInt(dobStr) || 2000;
       }
 
-      roster.push({
-        id: parts[0],
-        name: parts[1],
-        gender: parts[3].toUpperCase().startsWith('F') ? 'F' : 'M',
-        yob: yob
-      });
+      // Parse gender
+      var gender = genderStr.toUpperCase().charAt(0) === 'F' ? 'F' : 'M';
+
+      if (id && name) {
+        roster.push({ id: id, name: name, gender: gender, yob: yob });
+      }
     }
+
+    console.log('Final roster count:', roster.length);
+
     if (roster.length === 0) {
-      showToast('No valid rows found.');
+      showToast('No valid rows found. Check CSV format.');
       return;
     }
     state.rosters[state.currentSquad] = roster;
@@ -663,548 +601,421 @@ function clearRoster() {
 }
 
 function renderRosterTable() {
-  const roster = getRoster();
-  const container = document.getElementById('rosterTableContainer');
+  var roster = getRoster();
+  var container = document.getElementById('rosterTableContainer');
   if (roster.length === 0) {
     container.innerHTML = '<div class="text-center text-sm text-muted" style="padding:16px">No sailors loaded</div>';
     return;
   }
-  let html = '<table class="roster-table"><thead><tr><th>ID</th><th>Name</th><th>Gender</th><th>YOB</th><th></th></tr></thead><tbody>';
-  roster.forEach((s, i) => {
-    html += `<tr>
-      <td style="font-family:var(--mono)">${s.id}</td>
-      <td>${s.name}</td>
-      <td class="gender-${s.gender.toLowerCase()}">${s.gender}</td>
-      <td>${s.yob}</td>
-      <td><button class="btn btn-sm btn-danger" onclick="removeSailor(${i})" style="padding:2px 8px">✕</button></td>
-    </tr>`;
-  });
+  var html = '<table class="roster-table"><thead><tr><th>ID</th><th>Name</th><th>Gender</th><th>YOB</th><th></th></tr></thead><tbody>';
+  for (var i = 0; i < roster.length; i++) {
+    var s = roster[i];
+    html += '<tr>';
+    html += '<td style="font-family:var(--mono)">' + s.id + '</td>';
+    html += '<td>' + s.name + '</td>';
+    html += '<td class="gender-' + s.gender.toLowerCase() + '">' + s.gender + '</td>';
+    html += '<td>' + s.yob + '</td>';
+    html += '<td><button class="btn btn-sm btn-danger" onclick="removeSailor(' + i + ')" style="padding:2px 8px">&#10005;</button></td>';
+    html += '</tr>';
+  }
   html += '</tbody></table>';
   container.innerHTML = html;
 }
 
 function removeSailor(idx) {
   state.rosters[state.currentSquad].splice(idx, 1);
-  saveState();
-  renderRosterTable();
-  updateSquadCounts();
+  saveState(); renderRosterTable(); updateSquadCounts();
 }
 
-// ==================== TIMER TEST ====================
+// ==================== TIMER ====================
 function initTimerState(testName) {
   if (!timerStates[testName]) {
-    timerStates[testName] = {
-      running: false,
-      startTime: null,
-      elapsed: 0,
-      intervalId: null,
-      sailors: {} // { id: { stopped: false, time: 0 } }
-    };
+    timerStates[testName] = { running: false, startTime: null, elapsed: 0, intervalId: null, sailors: {} };
   }
   return timerStates[testName];
 }
 
 function formatTime(ms) {
-  const totalSec = Math.floor(ms / 1000);
-  const min = Math.floor(totalSec / 60);
-  const sec = totalSec % 60;
-  const tenths = Math.floor((ms % 1000) / 100);
-  return `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}.${tenths}`;
+  var totalSec = Math.floor(ms / 1000);
+  var min = Math.floor(totalSec / 60);
+  var sec = totalSec % 60;
+  var tenths = Math.floor((ms % 1000) / 100);
+  return (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec + '.' + tenths;
 }
 
 function parseTimeStr(str) {
-  // Parse MM:SS.T or MM:SS
-  const match = str.match(/^(\d+):(\d{2})(?:\.(\d))?$/);
+  var match = str.match(/^(\d+):(\d{2})(?:\.(\d))?$/);
   if (!match) return null;
-  const min = parseInt(match[1]);
-  const sec = parseInt(match[2]);
-  const tenths = match[3] ? parseInt(match[3]) : 0;
-  return (min * 60 + sec) * 1000 + tenths * 100;
+  return (parseInt(match[1]) * 60 + parseInt(match[2])) * 1000 + (match[3] ? parseInt(match[3]) * 100 : 0);
 }
 
 function renderTimerPage(testName, title, subtitle) {
-  const page = document.getElementById('page-' + testName);
-  const ts = initTimerState(testName);
-  const roster = getRoster();
-  const results = getResults(testName);
+  var page = document.getElementById('page-' + testName);
+  var ts = initTimerState(testName);
+  var roster = getRoster();
+  var results = getResults(testName);
 
-  // Restore sailor states from results
-  roster.forEach(s => {
-    if (!ts.sailors[s.id]) {
-      ts.sailors[s.id] = { stopped: false, time: 0 };
-    }
+  for (var i = 0; i < roster.length; i++) {
+    var s = roster[i];
+    if (!ts.sailors[s.id]) ts.sailors[s.id] = { stopped: false, time: 0 };
     if (results[s.id] !== undefined && !ts.running) {
       ts.sailors[s.id].stopped = true;
       ts.sailors[s.id].time = results[s.id];
     }
-  });
+  }
 
-  let html = `
-    <div class="page-title">${title}</div>
-    <div class="page-subtitle">${subtitle}</div>
-    <div class="master-clock" id="clock-${testName}">
-      <div class="label">ELAPSED TIME</div>
-      <div class="time" id="clockTime-${testName}">${formatTime(ts.elapsed)}</div>
-      <div class="clock-controls">
-        <button class="btn ${ts.running ? 'btn-danger' : 'btn-success'}" id="clockBtn-${testName}" onclick="toggleTimer('${testName}')">
-          ${ts.running ? '⏸ Pause' : (ts.elapsed > 0 ? '▶ Resume' : '▶ Start')}
-        </button>
-        <button class="btn btn-secondary" onclick="resetTimer('${testName}')">↺ Reset</button>
-      </div>
-    </div>
-    <div class="sailor-list" id="sailorList-${testName}">`;
+  var html = '<div class="page-title">' + title + '</div>';
+  html += '<div class="page-subtitle">' + subtitle + '</div>';
+  html += '<div class="master-clock">';
+  html += '<div class="label">ELAPSED TIME</div>';
+  html += '<div class="time" id="clockTime-' + testName + '">' + formatTime(ts.elapsed) + '</div>';
+  html += '<div class="clock-controls">';
+  html += '<button class="btn ' + (ts.running ? 'btn-danger' : 'btn-success') + '" id="clockBtn-' + testName + '" onclick="toggleTimer(\'' + testName + '\')">';
+  html += ts.running ? '&#9208; Pause' : (ts.elapsed > 0 ? '&#9654; Resume' : '&#9654; Start');
+  html += '</button>';
+  html += '<button class="btn btn-secondary" onclick="resetTimer(\'' + testName + '\')">&#8634; Reset</button>';
+  html += '</div></div>';
+  html += '<div class="sailor-list">';
 
   if (roster.length === 0) {
-    html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded. Go to Setup to upload a roster.</div>';
+    html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded. Go to Setup first.</div>';
   } else {
-    roster.forEach(s => {
-      const ss = ts.sailors[s.id] || { stopped: false, time: 0 };
-      html += `
-        <div class="sailor-row ${ss.stopped ? 'stopped' : ''}" id="row-${testName}-${s.id}">
-          <div>
-            <div class="sailor-name">${s.name}</div>
-            <div class="sailor-id">${s.id}</div>
-          </div>
-          <div class="sailor-time" id="time-${testName}-${s.id}">${ss.stopped ? formatTime(ss.time) : '--:--.--'}</div>
-          <button class="stop-btn ${ss.stopped ? 'stopped' : 'running'}" id="stopBtn-${testName}-${s.id}"
-            onclick="toggleSailorTimer('${testName}','${s.id}')">
-            ${ss.stopped ? 'Resume' : 'Stop'}
-          </button>
-          <input class="override-input" type="text" placeholder="MM:SS.T"
-            id="override-${testName}-${s.id}"
-            onchange="overrideTime('${testName}','${s.id}', this.value)"
-            value="${ss.stopped ? formatTime(ss.time) : ''}">
-        </div>`;
-    });
+    for (var i = 0; i < roster.length; i++) {
+      var s = roster[i];
+      var ss = ts.sailors[s.id] || { stopped: false, time: 0 };
+      html += '<div class="sailor-row ' + (ss.stopped ? 'stopped' : '') + '" id="row-' + testName + '-' + s.id + '">';
+      html += '<div><div class="sailor-name">' + s.name + '</div><div class="sailor-id">' + s.id + '</div></div>';
+      html += '<div class="sailor-time" id="time-' + testName + '-' + s.id + '">' + (ss.stopped ? formatTime(ss.time) : '--:--.--') + '</div>';
+      html += '<button class="stop-btn ' + (ss.stopped ? 'stopped' : 'running') + '" id="stopBtn-' + testName + '-' + s.id + '" onclick="toggleSailorTimer(\'' + testName + '\',\'' + s.id + '\')">' + (ss.stopped ? 'Resume' : 'Stop') + '</button>';
+      html += '<input class="override-input" type="text" placeholder="MM:SS.T" id="override-' + testName + '-' + s.id + '" onchange="overrideTime(\'' + testName + '\',\'' + s.id + '\', this.value)" value="' + (ss.stopped ? formatTime(ss.time) : '') + '">';
+      html += '</div>';
+    }
   }
   html += '</div>';
   page.innerHTML = html;
 }
 
 function toggleTimer(testName) {
-  const ts = timerStates[testName];
+  var ts = timerStates[testName];
   if (ts.running) {
-    // Pause
     clearInterval(ts.intervalId);
     ts.elapsed = Date.now() - ts.startTime;
     ts.running = false;
   } else {
-    // Start/Resume
     ts.startTime = Date.now() - ts.elapsed;
     ts.running = true;
-    ts.intervalId = setInterval(() => updateTimerDisplay(testName), 100);
+    ts.intervalId = setInterval(function() { updateTimerDisplay(testName); }, 100);
   }
   updateTimerButtons(testName);
 }
 
 function resetTimer(testName) {
   if (!confirm('Reset timer and all recorded times?')) return;
-  const ts = timerStates[testName];
+  var ts = timerStates[testName];
   clearInterval(ts.intervalId);
-  ts.running = false;
-  ts.startTime = null;
-  ts.elapsed = 0;
-  ts.sailors = {};
-  // Clear results
+  ts.running = false; ts.startTime = null; ts.elapsed = 0; ts.sailors = {};
   if (state.currentSquad && state.results[state.currentSquad]) {
-    delete state.results[state.currentSquad][testName];
-    saveState();
+    delete state.results[state.currentSquad][testName]; saveState();
   }
   renderTimerPage(testName, getTestTitle(testName), getTestSubtitle(testName));
 }
 
 function updateTimerDisplay(testName) {
-  const ts = timerStates[testName];
-  const elapsed = Date.now() - ts.startTime;
+  var ts = timerStates[testName];
+  var elapsed = Date.now() - ts.startTime;
   ts.elapsed = elapsed;
-  const clockEl = document.getElementById('clockTime-' + testName);
+  var clockEl = document.getElementById('clockTime-' + testName);
   if (clockEl) clockEl.textContent = formatTime(elapsed);
-
-  // Update running sailors
-  getRoster().forEach(s => {
-    const ss = ts.sailors[s.id];
+  var roster = getRoster();
+  for (var i = 0; i < roster.length; i++) {
+    var s = roster[i];
+    var ss = ts.sailors[s.id];
     if (ss && !ss.stopped) {
-      const timeEl = document.getElementById('time-' + testName + '-' + s.id);
+      var timeEl = document.getElementById('time-' + testName + '-' + s.id);
       if (timeEl) timeEl.textContent = formatTime(elapsed);
     }
-  });
+  }
 }
 
 function updateTimerButtons(testName) {
-  const ts = timerStates[testName];
-  const btn = document.getElementById('clockBtn-' + testName);
+  var ts = timerStates[testName];
+  var btn = document.getElementById('clockBtn-' + testName);
   if (btn) {
     btn.className = 'btn ' + (ts.running ? 'btn-danger' : 'btn-success');
-    btn.innerHTML = ts.running ? '⏸ Pause' : (ts.elapsed > 0 ? '▶ Resume' : '▶ Start');
+    btn.innerHTML = ts.running ? '&#9208; Pause' : (ts.elapsed > 0 ? '&#9654; Resume' : '&#9654; Start');
   }
 }
 
 function toggleSailorTimer(testName, sailorId) {
-  const ts = timerStates[testName];
+  var ts = timerStates[testName];
   if (!ts.sailors[sailorId]) ts.sailors[sailorId] = { stopped: false, time: 0 };
-  const ss = ts.sailors[sailorId];
-
+  var ss = ts.sailors[sailorId];
   if (ss.stopped) {
-    // Resume — follows master clock
-    ss.stopped = false;
-    ss.time = 0;
-    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    ss.stopped = false; ss.time = 0;
+    var row = document.getElementById('row-' + testName + '-' + sailorId);
     if (row) row.classList.remove('stopped');
-    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
     if (btn) { btn.textContent = 'Stop'; btn.className = 'stop-btn running'; }
-    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    var ov = document.getElementById('override-' + testName + '-' + sailorId);
     if (ov) ov.value = '';
-    // Remove from results
-    if (state.currentSquad && state.results[state.currentSquad]?.[testName]) {
-      delete state.results[state.currentSquad][testName][sailorId];
-      saveState();
+    if (state.currentSquad && state.results[state.currentSquad] && state.results[state.currentSquad][testName]) {
+      delete state.results[state.currentSquad][testName][sailorId]; saveState();
     }
   } else {
-    // Stop — capture master clock time
-    const elapsed = ts.running ? (Date.now() - ts.startTime) : ts.elapsed;
-    ss.stopped = true;
-    ss.time = elapsed;
-    const row = document.getElementById('row-' + testName + '-' + sailorId);
+    var elapsed = ts.running ? (Date.now() - ts.startTime) : ts.elapsed;
+    ss.stopped = true; ss.time = elapsed;
+    var row = document.getElementById('row-' + testName + '-' + sailorId);
     if (row) row.classList.add('stopped');
-    const timeEl = document.getElementById('time-' + testName + '-' + sailorId);
+    var timeEl = document.getElementById('time-' + testName + '-' + sailorId);
     if (timeEl) timeEl.textContent = formatTime(elapsed);
-    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+    var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
     if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
-    const ov = document.getElementById('override-' + testName + '-' + sailorId);
+    var ov = document.getElementById('override-' + testName + '-' + sailorId);
     if (ov) ov.value = formatTime(elapsed);
     setResult(testName, sailorId, elapsed);
   }
 }
 
 function overrideTime(testName, sailorId, val) {
-  const ms = parseTimeStr(val);
+  var ms = parseTimeStr(val);
   if (ms === null) { showToast('Invalid format. Use MM:SS.T'); return; }
-  const ts = timerStates[testName];
+  var ts = timerStates[testName];
   if (!ts.sailors[sailorId]) ts.sailors[sailorId] = { stopped: false, time: 0 };
-  ts.sailors[sailorId].stopped = true;
-  ts.sailors[sailorId].time = ms;
-  const row = document.getElementById('row-' + testName + '-' + sailorId);
+  ts.sailors[sailorId].stopped = true; ts.sailors[sailorId].time = ms;
+  var row = document.getElementById('row-' + testName + '-' + sailorId);
   if (row) row.classList.add('stopped');
-  const timeEl = document.getElementById('time-' + testName + '-' + sailorId);
+  var timeEl = document.getElementById('time-' + testName + '-' + sailorId);
   if (timeEl) timeEl.textContent = formatTime(ms);
-  const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
+  var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
   if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
   setResult(testName, sailorId, ms);
 }
 
-// ==================== METRONOME TEST ====================
+// ==================== METRONOME ====================
 function initMetronomeState(testName) {
   if (!metronomeStates[testName]) {
-    metronomeStates[testName] = {
-      bpm: 40,
-      running: false,
-      repCount: 0,
-      cuePhase: 0, // 0=first cue, 1=second cue
-      intervalId: null,
-      audioCtx: null,
-      sailors: {} // { id: { stopped: false, count: 0 } }
-    };
+    metronomeStates[testName] = { bpm: 40, running: false, repCount: 0, cuePhase: 0, intervalId: null, sailors: {} };
   }
   return metronomeStates[testName];
 }
 
-function getFirstCue(testName) {
-  return (testName === 'pushup') ? 'Down' : 'Up';
-}
-function getSecondCue(testName) {
-  return (testName === 'pushup') ? 'Up' : 'Down';
-}
+function getFirstCue(testName) { return testName === 'pushup' ? 'Down' : 'Up'; }
+function getSecondCue(testName) { return testName === 'pushup' ? 'Up' : 'Down'; }
 
 function renderMetronomePage(testName, title, subtitle) {
-  const page = document.getElementById('page-' + testName);
-  const ms = initMetronomeState(testName);
-  const roster = getRoster();
-  const results = getResults(testName);
+  var page = document.getElementById('page-' + testName);
+  var ms = initMetronomeState(testName);
+  var roster = getRoster();
+  var results = getResults(testName);
 
-  roster.forEach(s => {
+  for (var i = 0; i < roster.length; i++) {
+    var s = roster[i];
     if (!ms.sailors[s.id]) ms.sailors[s.id] = { stopped: false, count: 0 };
     if (results[s.id] !== undefined && !ms.running) {
-      ms.sailors[s.id].stopped = true;
-      ms.sailors[s.id].count = results[s.id];
+      ms.sailors[s.id].stopped = true; ms.sailors[s.id].count = results[s.id];
     }
-  });
+  }
 
-  const firstCue = getFirstCue(testName);
-  const secondCue = getSecondCue(testName);
+  var firstCue = getFirstCue(testName);
+  var secondCue = getSecondCue(testName);
 
-  let html = `
-    <div class="page-title">${title}</div>
-    <div class="page-subtitle">${subtitle}</div>
-    <div class="metronome-display" id="metro-${testName}">
-      <div class="bpm-label">BEATS PER MINUTE</div>
-      <div class="bpm-value" id="metroBpm-${testName}">${ms.bpm}</div>
-      <div class="bpm-control">
-        <button onclick="adjustBpm('${testName}',-5)">−</button>
-        <input type="number" id="bpmInput-${testName}" value="${ms.bpm}" min="10" max="120"
-          onchange="setBpm('${testName}', this.value)" style="color:white;background:transparent;border-color:#555">
-        <button onclick="adjustBpm('${testName}',5)">+</button>
-      </div>
-      <div class="rep-count">Rep: <span id="metroRep-${testName}">${ms.repCount}</span></div>
-      <div class="cue-word" id="metroCue-${testName}">${ms.running ? '' : firstCue + ' / ' + secondCue}</div>
-      <div class="clock-controls" style="margin-top:12px">
-        <button class="btn ${ms.running ? 'btn-danger' : 'btn-success'}" id="metroBtn-${testName}"
-          onclick="toggleMetronome('${testName}')">
-          ${ms.running ? '⏹ Stop Test' : '▶ Start Test'}
-        </button>
-        <button class="btn btn-secondary" onclick="resetMetronome('${testName}')">↺ Reset</button>
-      </div>
-    </div>
-    <div class="sailor-list" id="sailorList-${testName}">`;
+  var html = '<div class="page-title">' + title + '</div>';
+  html += '<div class="page-subtitle">' + subtitle + '</div>';
+  html += '<div class="metronome-display">';
+  html += '<div class="bpm-label">BEATS PER MINUTE</div>';
+  html += '<div class="bpm-value" id="metroBpm-' + testName + '">' + ms.bpm + '</div>';
+  html += '<div class="bpm-control">';
+  html += '<button onclick="adjustBpm(\'' + testName + '\',-5)">&minus;</button>';
+  html += '<input type="number" id="bpmInput-' + testName + '" value="' + ms.bpm + '" min="10" max="120" onchange="setBpm(\'' + testName + '\', this.value)" style="color:white;background:transparent;border-color:#555">';
+  html += '<button onclick="adjustBpm(\'' + testName + '\',5)">+</button>';
+  html += '</div>';
+  html += '<div class="rep-count">Rep: <span id="metroRep-' + testName + '">' + ms.repCount + '</span></div>';
+  html += '<div class="cue-word" id="metroCue-' + testName + '">' + (ms.running ? '' : firstCue + ' / ' + secondCue) + '</div>';
+  html += '<div class="clock-controls" style="margin-top:12px">';
+  html += '<button class="btn ' + (ms.running ? 'btn-danger' : 'btn-success') + '" id="metroBtn-' + testName + '" onclick="toggleMetronome(\'' + testName + '\')">' + (ms.running ? '&#9209; Stop Test' : '&#9654; Start Test') + '</button>';
+  html += '<button class="btn btn-secondary" onclick="resetMetronome(\'' + testName + '\')">&#8634; Reset</button>';
+  html += '</div></div>';
+  html += '<div class="sailor-list">';
 
   if (roster.length === 0) {
     html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded.</div>';
   } else {
-    roster.forEach(s => {
-      const ss = ms.sailors[s.id] || { stopped: false, count: 0 };
-      html += `
-        <div class="sailor-row ${ss.stopped ? 'stopped' : ''}" id="row-${testName}-${s.id}">
-          <div>
-            <div class="sailor-name">${s.name}</div>
-            <div class="sailor-id">${s.id}</div>
-          </div>
-          <div class="sailor-count" id="count-${testName}-${s.id}">${ss.count}</div>
-          <button class="stop-btn ${ss.stopped ? 'stopped' : 'running'}" id="stopBtn-${testName}-${s.id}"
-            onclick="toggleSailorMetronome('${testName}','${s.id}')">
-            ${ss.stopped ? 'Resume' : 'Stop'}
-          </button>
-          <input class="override-input" type="number" min="0" placeholder="#"
-            id="override-${testName}-${s.id}"
-            onchange="overrideCount('${testName}','${s.id}', this.value)"
-            value="${ss.stopped ? ss.count : ''}" style="width:55px">
-        </div>`;
-    });
+    for (var i = 0; i < roster.length; i++) {
+      var s = roster[i];
+      var ss = ms.sailors[s.id] || { stopped: false, count: 0 };
+      html += '<div class="sailor-row ' + (ss.stopped ? 'stopped' : '') + '" id="row-' + testName + '-' + s.id + '">';
+      html += '<div><div class="sailor-name">' + s.name + '</div><div class="sailor-id">' + s.id + '</div></div>';
+      html += '<div class="sailor-count" id="count-' + testName + '-' + s.id + '">' + ss.count + '</div>';
+      html += '<button class="stop-btn ' + (ss.stopped ? 'stopped' : 'running') + '" id="stopBtn-' + testName + '-' + s.id + '" onclick="toggleSailorMetronome(\'' + testName + '\',\'' + s.id + '\')">' + (ss.stopped ? 'Resume' : 'Stop') + '</button>';
+      html += '<input class="override-input" type="number" min="0" placeholder="#" id="override-' + testName + '-' + s.id + '" onchange="overrideCount(\'' + testName + '\',\'' + s.id + '\', this.value)" value="' + (ss.stopped ? ss.count : '') + '" style="width:55px">';
+      html += '</div>';
+    }
   }
   html += '</div>';
   page.innerHTML = html;
 }
 
 function adjustBpm(testName, delta) {
-  const ms = metronomeStates[testName];
-  if (ms.running) return;
+  var ms = metronomeStates[testName]; if (ms.running) return;
   ms.bpm = Math.max(10, Math.min(120, ms.bpm + delta));
   document.getElementById('metroBpm-' + testName).textContent = ms.bpm;
   document.getElementById('bpmInput-' + testName).value = ms.bpm;
 }
-
 function setBpm(testName, val) {
-  const ms = metronomeStates[testName];
-  if (ms.running) return;
+  var ms = metronomeStates[testName]; if (ms.running) return;
   ms.bpm = Math.max(10, Math.min(120, parseInt(val) || 40));
   document.getElementById('metroBpm-' + testName).textContent = ms.bpm;
 }
-
 function toggleMetronome(testName) {
-  const ms = metronomeStates[testName];
-  if (ms.running) {
-    stopMetronome(testName);
-  } else {
-    startMetronome(testName);
-  }
+  var ms = metronomeStates[testName];
+  if (ms.running) stopMetronome(testName); else startMetronome(testName);
 }
 
 function startMetronome(testName) {
-  const ms = metronomeStates[testName];
-  ms.running = true;
-  ms.repCount = 0;
-  ms.cuePhase = 0;
+  var ms = metronomeStates[testName];
+  ms.running = true; ms.repCount = 0; ms.cuePhase = 0;
+  var roster = getRoster();
+  for (var i = 0; i < roster.length; i++) {
+    if (ms.sailors[roster[i].id]) { ms.sailors[roster[i].id].stopped = false; ms.sailors[roster[i].id].count = 0; }
+  }
+  var btn = document.getElementById('metroBtn-' + testName);
+  if (btn) { btn.className = 'btn btn-danger'; btn.innerHTML = '&#9209; Stop Test'; }
 
-  // Reset all sailor counts
-  getRoster().forEach(s => {
-    if (ms.sailors[s.id]) {
-      ms.sailors[s.id].stopped = false;
-      ms.sailors[s.id].count = 0;
-    }
-  });
-
-  // Update UI
-  const btn = document.getElementById('metroBtn-' + testName);
-  btn.className = 'btn btn-danger';
-  btn.textContent = '⏹ Stop Test';
-
-  // Voice countdown
-  const firstCue = getFirstCue(testName);
-  const cueInterval = (60 / ms.bpm / 2) * 1000; // ms between cues
+  var cueInterval = (60 / ms.bpm / 2) * 1000;
 
   speak('Test commencing. Adopt start position.');
-  setTimeout(() => speak('Starting in'), 2500);
-  setTimeout(() => speak('5'), 3500);
-  setTimeout(() => speak('4'), 4500);
-  setTimeout(() => speak('3'), 5500);
-  setTimeout(() => speak('2'), 6500);
-  setTimeout(() => speak('1'), 7500);
-
-  // Start metronome after countdown
-  setTimeout(() => {
+  setTimeout(function() { speak('Starting in'); }, 2500);
+  setTimeout(function() { speak('5'); }, 3500);
+  setTimeout(function() { speak('4'); }, 4500);
+  setTimeout(function() { speak('3'); }, 5500);
+  setTimeout(function() { speak('2'); }, 6500);
+  setTimeout(function() { speak('1'); }, 7500);
+  setTimeout(function() {
     if (!ms.running) return;
     metronomeTick(testName);
-    ms.intervalId = setInterval(() => metronomeTick(testName), cueInterval);
+    ms.intervalId = setInterval(function() { metronomeTick(testName); }, cueInterval);
   }, 8000);
 
-  // Rebuild sailor list UI
-  renderMetronomePage(testName, getTestTitle(testName), getTestSubtitle(testName));
-  // Re-set running state after rebuild
-  metronomeStates[testName] = ms;
-  setTimeout(() => {
-    const btn2 = document.getElementById('metroBtn-' + testName);
-    if (btn2) { btn2.className = 'btn btn-danger'; btn2.textContent = '⏹ Stop Test'; }
-  }, 50);
+  // Reset sailor UI
+  for (var i = 0; i < roster.length; i++) {
+    var sid = roster[i].id;
+    var row = document.getElementById('row-' + testName + '-' + sid);
+    if (row) row.classList.remove('stopped');
+    var countEl = document.getElementById('count-' + testName + '-' + sid);
+    if (countEl) countEl.textContent = '0';
+    var btnEl = document.getElementById('stopBtn-' + testName + '-' + sid);
+    if (btnEl) { btnEl.textContent = 'Stop'; btnEl.className = 'stop-btn running'; }
+    var ovEl = document.getElementById('override-' + testName + '-' + sid);
+    if (ovEl) ovEl.value = '';
+  }
 }
 
 function metronomeTick(testName) {
-  const ms = metronomeStates[testName];
+  var ms = metronomeStates[testName];
   if (!ms.running) return;
-
-  const firstCue = getFirstCue(testName);
-  const secondCue = getSecondCue(testName);
-
-  let cueWord;
+  var firstCue = getFirstCue(testName);
+  var secondCue = getSecondCue(testName);
+  var cueWord;
   if (ms.cuePhase === 0) {
-    cueWord = firstCue;
-    ms.cuePhase = 1;
+    cueWord = firstCue; ms.cuePhase = 1;
   } else {
-    cueWord = secondCue;
-    ms.cuePhase = 0;
-    // A rep is completed on the second cue
-    ms.repCount++;
-    // Increment all active sailors
-    getRoster().forEach(s => {
-      const ss = ms.sailors[s.id];
+    cueWord = secondCue; ms.cuePhase = 0; ms.repCount++;
+    var roster = getRoster();
+    for (var i = 0; i < roster.length; i++) {
+      var ss = ms.sailors[roster[i].id];
       if (ss && !ss.stopped) {
         ss.count = ms.repCount;
-        const countEl = document.getElementById('count-' + testName + '-' + s.id);
+        var countEl = document.getElementById('count-' + testName + '-' + roster[i].id);
         if (countEl) countEl.textContent = ss.count;
       }
-    });
+    }
   }
-
-  // Update display
-  const repEl = document.getElementById('metroRep-' + testName);
+  var repEl = document.getElementById('metroRep-' + testName);
   if (repEl) repEl.textContent = ms.repCount;
-  const cueEl = document.getElementById('metroCue-' + testName);
-  if (cueEl) {
-    cueEl.textContent = cueWord;
-    cueEl.style.color = cueWord === firstCue ? '#FF6B6B' : '#69DB7C';
-  }
-
-  // Speak cue
+  var cueEl = document.getElementById('metroCue-' + testName);
+  if (cueEl) { cueEl.textContent = cueWord; cueEl.style.color = cueWord === firstCue ? '#FF6B6B' : '#69DB7C'; }
   speak(cueWord);
-
-  // Beep
   playBeep(cueWord === firstCue ? 440 : 660);
 }
 
 function stopMetronome(testName) {
-  const ms = metronomeStates[testName];
+  var ms = metronomeStates[testName];
   ms.running = false;
   if (ms.intervalId) { clearInterval(ms.intervalId); ms.intervalId = null; }
-  const btn = document.getElementById('metroBtn-' + testName);
-  if (btn) { btn.className = 'btn btn-success'; btn.textContent = '▶ Start Test'; }
-  const cueEl = document.getElementById('metroCue-' + testName);
+  var btn = document.getElementById('metroBtn-' + testName);
+  if (btn) { btn.className = 'btn btn-success'; btn.innerHTML = '&#9654; Start Test'; }
+  var cueEl = document.getElementById('metroCue-' + testName);
   if (cueEl) { cueEl.textContent = 'DONE'; cueEl.style.color = 'white'; }
-
-  // Save all active sailor counts as results
-  getRoster().forEach(s => {
-    const ss = ms.sailors[s.id];
-    if (ss && ss.count > 0) {
-      ss.stopped = true;
-      setResult(testName, s.id, ss.count);
-    }
-  });
+  var roster = getRoster();
+  for (var i = 0; i < roster.length; i++) {
+    var ss = ms.sailors[roster[i].id];
+    if (ss && ss.count > 0) { ss.stopped = true; setResult(testName, roster[i].id, ss.count); }
+  }
 }
 
 function resetMetronome(testName) {
   if (!confirm('Reset metronome and all counts?')) return;
-  const ms = metronomeStates[testName];
+  var ms = metronomeStates[testName];
   if (ms.intervalId) clearInterval(ms.intervalId);
   delete metronomeStates[testName];
   if (state.currentSquad && state.results[state.currentSquad]) {
-    delete state.results[state.currentSquad][testName];
-    saveState();
+    delete state.results[state.currentSquad][testName]; saveState();
   }
   renderMetronomePage(testName, getTestTitle(testName), getTestSubtitle(testName));
 }
 
 function toggleSailorMetronome(testName, sailorId) {
-  const ms = metronomeStates[testName];
+  var ms = metronomeStates[testName];
   if (!ms.sailors[sailorId]) ms.sailors[sailorId] = { stopped: false, count: 0 };
-  const ss = ms.sailors[sailorId];
-
+  var ss = ms.sailors[sailorId];
   if (ss.stopped) {
-    // Resume — pick up from current global rep count
     ss.stopped = false;
-    const row = document.getElementById('row-' + testName + '-' + sailorId);
-    if (row) row.classList.remove('stopped');
-    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
-    if (btn) { btn.textContent = 'Stop'; btn.className = 'stop-btn running'; }
-    const ov = document.getElementById('override-' + testName + '-' + sailorId);
-    if (ov) ov.value = '';
-    if (state.currentSquad && state.results[state.currentSquad]?.[testName]) {
-      delete state.results[state.currentSquad][testName][sailorId];
-      saveState();
-    }
+    var row = document.getElementById('row-' + testName + '-' + sailorId); if (row) row.classList.remove('stopped');
+    var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId); if (btn) { btn.textContent = 'Stop'; btn.className = 'stop-btn running'; }
+    var ov = document.getElementById('override-' + testName + '-' + sailorId); if (ov) ov.value = '';
+    if (state.currentSquad && state.results[state.currentSquad] && state.results[state.currentSquad][testName]) { delete state.results[state.currentSquad][testName][sailorId]; saveState(); }
   } else {
-    // Stop — freeze count
     ss.stopped = true;
-    const row = document.getElementById('row-' + testName + '-' + sailorId);
-    if (row) row.classList.add('stopped');
-    const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
-    if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
-    const ov = document.getElementById('override-' + testName + '-' + sailorId);
-    if (ov) ov.value = ss.count;
+    var row = document.getElementById('row-' + testName + '-' + sailorId); if (row) row.classList.add('stopped');
+    var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId); if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+    var ov = document.getElementById('override-' + testName + '-' + sailorId); if (ov) ov.value = ss.count;
     setResult(testName, sailorId, ss.count);
   }
 }
 
 function overrideCount(testName, sailorId, val) {
-  const count = parseInt(val);
+  var count = parseInt(val);
   if (isNaN(count) || count < 0) { showToast('Invalid count'); return; }
-  const ms = metronomeStates[testName];
+  var ms = metronomeStates[testName];
   if (!ms.sailors[sailorId]) ms.sailors[sailorId] = { stopped: false, count: 0 };
-  ms.sailors[sailorId].stopped = true;
-  ms.sailors[sailorId].count = count;
-  const row = document.getElementById('row-' + testName + '-' + sailorId);
-  if (row) row.classList.add('stopped');
-  const countEl = document.getElementById('count-' + testName + '-' + sailorId);
-  if (countEl) countEl.textContent = count;
-  const btn = document.getElementById('stopBtn-' + testName + '-' + sailorId);
-  if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
+  ms.sailors[sailorId].stopped = true; ms.sailors[sailorId].count = count;
+  var row = document.getElementById('row-' + testName + '-' + sailorId); if (row) row.classList.add('stopped');
+  var countEl = document.getElementById('count-' + testName + '-' + sailorId); if (countEl) countEl.textContent = count;
+  var btn = document.getElementById('stopBtn-' + testName + '-' + sailorId); if (btn) { btn.textContent = 'Resume'; btn.className = 'stop-btn stopped'; }
   setResult(testName, sailorId, count);
 }
 
 // ==================== AUDIO ====================
-let audioCtx = null;
+var audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
-
 function playBeep(freq) {
   try {
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.frequency.value = freq;
-    osc.type = 'sine';
+    var ctx = getAudioCtx();
+    var osc = ctx.createOscillator(); var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = freq; osc.type = 'sine';
     gain.gain.setValueAtTime(0.15, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.1);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.1);
   } catch(e) {}
 }
-
 function speak(text) {
   try {
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 1.2;
-    utter.pitch = 1.0;
-    utter.volume = 1.0;
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1.2; utter.pitch = 1.0; utter.volume = 1.0;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utter);
   } catch(e) {}
@@ -1212,34 +1023,19 @@ function speak(text) {
 
 // ==================== BROAD JUMP ====================
 function renderBroadJumpPage() {
-  const page = document.getElementById('page-broadjump');
-  const roster = getRoster();
-  const results = getResults('broadjump');
-
-  let html = `
-    <div class="page-title">Standing Broad Jump</div>
-    <div class="page-subtitle">Enter distance in centimetres</div>
-    <div class="sailor-list">`;
-
+  var page = document.getElementById('page-broadjump');
+  var roster = getRoster(); var results = getResults('broadjump');
+  var html = '<div class="page-title">Standing Broad Jump</div>';
+  html += '<div class="page-subtitle">Enter distance in centimetres</div>';
+  html += '<div class="sailor-list">';
   if (roster.length === 0) {
     html += '<div class="text-center text-sm text-muted" style="padding:20px">No sailors loaded.</div>';
   } else {
-    roster.forEach(s => {
-      const val = results[s.id] || '';
-      html += `
-        <div class="sailor-row">
-          <div>
-            <div class="sailor-name">${s.name}</div>
-            <div class="sailor-id">${s.id}</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:4px;">
-            <input class="jump-input" type="number" min="0" step="1" placeholder="cm"
-              value="${val}"
-              onchange="setResult('broadjump','${s.id}', parseInt(this.value) || 0)">
-            <span class="text-sm text-muted">cm</span>
-          </div>
-        </div>`;
-    });
+    for (var i = 0; i < roster.length; i++) {
+      var s = roster[i]; var val = results[s.id] || '';
+      html += '<div class="sailor-row"><div><div class="sailor-name">' + s.name + '</div><div class="sailor-id">' + s.id + '</div></div>';
+      html += '<div style="display:flex;align-items:center;gap:4px;"><input class="jump-input" type="number" min="0" step="1" placeholder="cm" value="' + val + '" onchange="setResult(\'broadjump\',\'' + s.id + '\', parseInt(this.value) || 0)"><span class="text-sm text-muted">cm</span></div></div>';
+    }
   }
   html += '</div>';
   page.innerHTML = html;
@@ -1247,344 +1043,224 @@ function renderBroadJumpPage() {
 
 // ==================== REPORT ====================
 function renderReportPage() {
-  const page = document.getElementById('page-report');
+  var page = document.getElementById('page-report');
   if (!state.currentSquad) {
     page.innerHTML = '<div class="page-title">Squad Report</div><div class="text-center text-muted" style="padding:40px">Select a squad first</div>';
     return;
   }
+  var squad = state.currentSquad; var roster = getRoster();
+  var allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+  var html = '<div class="page-title">Squad Report &#8212; ' + squad + '</div>';
+  html += '<div class="page-subtitle">' + state.testDate + ' &middot; ' + roster.length + ' sailors</div>';
+  html += '<button class="btn btn-primary btn-block mb-16" onclick="generatePDF()">&#128196; Download PDF Report</button>';
+  html += '<div class="card"><div class="card-title">Summary</div>';
 
-  const squad = state.currentSquad;
-  const roster = getRoster();
-  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
-
-  let html = `
-    <div class="page-title">Squad Report — ${squad}</div>
-    <div class="page-subtitle">${state.testDate} · ${roster.length} sailors</div>
-    <button class="btn btn-primary btn-block mb-16" onclick="generatePDF()">📄 Download PDF Report</button>
-    <div class="card">
-      <div class="card-title">Summary</div>`;
-
-  allTests.forEach(testName => {
-    const results = getResults(testName);
-    const entries = Object.entries(results).filter(([id, v]) => v !== undefined && v !== null && v !== 0);
-    if (entries.length === 0) return;
-
-    const values = entries.map(([id, v]) => typeof v === 'number' ? v : 0);
-    const maleVals = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'M').map(([,v]) => v);
-    const femaleVals = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'F').map(([,v]) => v);
-
-    const stats = calcStats(values);
-    const maleStats = maleVals.length > 0 ? calcStats(maleVals) : null;
-    const femaleStats = femaleVals.length > 0 ? calcStats(femaleVals) : null;
-
-    const isTime = isTimedTest(testName);
-    const unit = getUnit(testName);
-    const formatVal = v => isTime ? formatTime(v) : v + unit;
-
-    html += `
-      <div class="report-test-section">
-        <div class="report-test-title">${getTestTitle(testName)} <span class="text-sm text-muted">(N=${entries.length})</span></div>
-        <div class="text-sm text-muted mb-8">
-          Mean: ${formatVal(Math.round(stats.mean))} · Min: ${formatVal(stats.min)} · Max: ${formatVal(stats.max)}
-        </div>`;
-
-    if (maleStats) {
-      html += `<div class="text-sm" style="color:var(--blue);margin-bottom:4px">♂ Mean: ${formatVal(Math.round(maleStats.mean))} · Min: ${formatVal(maleStats.min)} · Max: ${formatVal(maleStats.max)}</div>`;
+  for (var t = 0; t < allTests.length; t++) {
+    var testName = allTests[t];
+    var results = getResults(testName);
+    var entries = []; var keys = Object.keys(results);
+    for (var k = 0; k < keys.length; k++) {
+      if (results[keys[k]] !== undefined && results[keys[k]] !== null && results[keys[k]] !== 0) entries.push([keys[k], results[keys[k]]]);
     }
-    if (femaleStats) {
-      html += `<div class="text-sm" style="color:var(--red);margin-bottom:4px">♀ Mean: ${formatVal(Math.round(femaleStats.mean))} · Min: ${formatVal(femaleStats.min)} · Max: ${formatVal(femaleStats.max)}</div>`;
+    if (entries.length === 0) continue;
+
+    var values = []; var maleVals = []; var femaleVals = [];
+    for (var e = 0; e < entries.length; e++) {
+      values.push(entries[e][1]);
+      var sailor = null;
+      for (var r = 0; r < roster.length; r++) { if (roster[r].id === entries[e][0]) { sailor = roster[r]; break; } }
+      if (sailor && sailor.gender === 'M') maleVals.push(entries[e][1]);
+      if (sailor && sailor.gender === 'F') femaleVals.push(entries[e][1]);
+    }
+
+    var stats = calcStats(values);
+    var isTime = isTimedTest(testName); var unit = getUnit(testName);
+
+    html += '<div style="margin-bottom:20px"><div style="font-size:14px;font-weight:600;margin-bottom:8px">' + getTestTitle(testName) + ' <span class="text-sm text-muted">(N=' + entries.length + ')</span></div>';
+    html += '<div class="text-sm text-muted mb-8">Mean: ' + fmtVal(stats.mean, isTime, unit) + ' &middot; Min: ' + fmtVal(stats.min, isTime, unit) + ' &middot; Max: ' + fmtVal(stats.max, isTime, unit) + '</div>';
+    if (maleVals.length > 0) {
+      var ms2 = calcStats(maleVals);
+      html += '<div class="text-sm" style="color:var(--blue);margin-bottom:4px">&#9794; Mean: ' + fmtVal(ms2.mean, isTime, unit) + ' &middot; Min: ' + fmtVal(ms2.min, isTime, unit) + ' &middot; Max: ' + fmtVal(ms2.max, isTime, unit) + '</div>';
+    }
+    if (femaleVals.length > 0) {
+      var fs = calcStats(femaleVals);
+      html += '<div class="text-sm" style="color:var(--red);margin-bottom:4px">&#9792; Mean: ' + fmtVal(fs.mean, isTime, unit) + ' &middot; Min: ' + fmtVal(fs.min, isTime, unit) + ' &middot; Max: ' + fmtVal(fs.max, isTime, unit) + '</div>';
     }
     html += '</div>';
-  });
-
-  html += '</div></div>';
+  }
+  html += '</div>';
   page.innerHTML = html;
 }
 
+function fmtVal(v, isTime, unit) { return isTime ? formatTime(Math.round(v)) : Math.round(v) + unit; }
+
 function calcStats(values) {
   if (values.length === 0) return { mean: 0, min: 0, max: 0, q1: 0, q2: 0, q3: 0 };
-  const sorted = [...values].sort((a, b) => a - b);
-  const n = sorted.length;
-  return {
-    mean: sorted.reduce((a, b) => a + b, 0) / n,
-    min: sorted[0],
-    max: sorted[n - 1],
-    q1: percentile(sorted, 25),
-    q2: percentile(sorted, 50),
-    q3: percentile(sorted, 75)
-  };
+  var sorted = values.slice().sort(function(a,b) { return a - b; });
+  var n = sorted.length;
+  var sum = 0; for (var i = 0; i < n; i++) sum += sorted[i];
+  return { mean: sum / n, min: sorted[0], max: sorted[n-1], q1: pctile(sorted,25), q2: pctile(sorted,50), q3: pctile(sorted,75) };
 }
 
-function percentile(sorted, p) {
-  const idx = (p / 100) * (sorted.length - 1);
-  const lower = Math.floor(idx);
-  const upper = Math.ceil(idx);
-  if (lower === upper) return sorted[lower];
-  return sorted[lower] + (sorted[upper] - sorted[lower]) * (idx - lower);
+function pctile(sorted, p) {
+  var idx = (p / 100) * (sorted.length - 1);
+  var lo = Math.floor(idx); var hi = Math.ceil(idx);
+  if (lo === hi) return sorted[lo];
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (idx - lo);
 }
 
-// ==================== PDF GENERATION ====================
+// ==================== PDF ====================
 function generatePDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  var squad = state.currentSquad; var roster = getRoster();
+  var pageW = 210; var margin = 15; var contentW = pageW - 2 * margin; var y = margin;
 
-  const squad = state.currentSquad;
-  const roster = getRoster();
-  const pageW = 210;
-  const margin = 15;
-  const contentW = pageW - 2 * margin;
-  let y = margin;
-
-  // Header
-  doc.setFillColor(214, 113, 78);
+  doc.setFillColor(212, 113, 78);
   doc.rect(0, 0, pageW, 28, 'F');
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(18);
-  doc.setFont(undefined, 'bold');
-  doc.text('Sail Fit — Squad Report', margin, 12);
-  doc.setFontSize(11);
-  doc.setFont(undefined, 'normal');
-  doc.text(`${squad} · ${state.testDate} · ${roster.length} sailors`, margin, 20);
-  y = 36;
+  doc.setFontSize(18); doc.setFont(undefined, 'bold');
+  doc.text('Sail Fit - Squad Report', margin, 12);
+  doc.setFontSize(11); doc.setFont(undefined, 'normal');
+  doc.text(squad + ' | ' + state.testDate + ' | ' + roster.length + ' sailors', margin, 20);
+  y = 36; doc.setTextColor(30, 30, 30);
 
-  doc.setTextColor(30, 30, 30);
-
-  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
-
-  allTests.forEach(testName => {
-    const results = getResults(testName);
-    const entries = Object.entries(results).filter(([id, v]) => v !== undefined && v !== null && v !== 0);
-    if (entries.length === 0) return;
-
+  var allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+  for (var t = 0; t < allTests.length; t++) {
+    var testName = allTests[t];
+    var results = getResults(testName);
+    var entries = []; var keys = Object.keys(results);
+    for (var k = 0; k < keys.length; k++) { if (results[keys[k]] !== undefined && results[keys[k]] !== null && results[keys[k]] !== 0) entries.push([keys[k], results[keys[k]]]); }
+    if (entries.length === 0) continue;
     if (y > 250) { doc.addPage(); y = margin; }
 
-    const values = entries.map(([, v]) => v);
-    const maleEntries = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'M');
-    const femaleEntries = entries.filter(([id]) => roster.find(s => s.id === id)?.gender === 'F');
-    const maleVals = maleEntries.map(([,v]) => v);
-    const femaleVals = femaleEntries.map(([,v]) => v);
+    var values = []; var maleVals = []; var femaleVals = [];
+    for (var e = 0; e < entries.length; e++) {
+      values.push(entries[e][1]);
+      var sailor = null;
+      for (var r = 0; r < roster.length; r++) { if (roster[r].id === entries[e][0]) { sailor = roster[r]; break; } }
+      if (sailor && sailor.gender === 'M') maleVals.push(entries[e][1]);
+      if (sailor && sailor.gender === 'F') femaleVals.push(entries[e][1]);
+    }
 
-    const stats = calcStats(values);
-    const maleStats = maleVals.length > 0 ? calcStats(maleVals) : null;
-    const femaleStats = femaleVals.length > 0 ? calcStats(femaleVals) : null;
+    var stats = calcStats(values);
+    var maleStats = maleVals.length > 0 ? calcStats(maleVals) : null;
+    var femaleStats = femaleVals.length > 0 ? calcStats(femaleVals) : null;
+    var isTime = isTimedTest(testName); var unit = getUnit(testName);
 
-    const isTime = isTimedTest(testName);
-    const unit = getUnit(testName);
-    const formatVal = v => isTime ? formatTime(v) : Math.round(v) + unit;
-
-    // Test title
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${getTestTitle(testName)}  (N=${entries.length})`, margin, y);
+    doc.setFontSize(12); doc.setFont(undefined, 'bold');
+    doc.text(getTestTitle(testName) + '  (N=' + entries.length + ')', margin, y);
     y += 6;
+    var barH = 7; var globalMin = stats.min; var globalMax = stats.max; var range = globalMax - globalMin || 1;
 
-    // Draw bar chart
-    const barH = 7;
-    const barGap = 2;
+    drawBar(doc, 'Overall', stats, globalMin, range, margin, y, contentW, barH, [180,180,180], isTime, unit);
+    y += barH + 7;
+    if (maleStats) { drawBar(doc, 'Male', maleStats, globalMin, range, margin, y, contentW, barH, [74,125,201], isTime, unit); y += barH + 7; }
+    if (femaleStats) { drawBar(doc, 'Female', femaleStats, globalMin, range, margin, y, contentW, barH, [212,84,84], isTime, unit); y += barH + 7; }
 
-    // For timed tests, lower is better — invert the scale
-    const allVals = values;
-    const globalMin = Math.min(...allVals);
-    const globalMax = Math.max(...allVals);
-    const range = globalMax - globalMin || 1;
-
-    function valToX(v) {
-      return margin + ((v - globalMin) / range) * contentW;
-    }
-
-    // Overall bar
-    drawBar(doc, 'Overall', stats, globalMin, range, margin, y, contentW, barH, [180, 180, 180], formatVal);
-    y += barH + barGap + 5;
-
-    // Male bar
-    if (maleStats) {
-      drawBar(doc, 'Male', maleStats, globalMin, range, margin, y, contentW, barH, [74, 125, 201], formatVal);
-      y += barH + barGap + 5;
-    }
-
-    // Female bar
-    if (femaleStats) {
-      drawBar(doc, 'Female', femaleStats, globalMin, range, margin, y, contentW, barH, [212, 84, 84], formatVal);
-      y += barH + barGap + 5;
-    }
-
-    // Stats text
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'normal');
-    doc.setTextColor(100, 100, 100);
-    let statText = `Mean: ${formatVal(Math.round(stats.mean))} | Min: ${formatVal(stats.min)} | Max: ${formatVal(stats.max)} | Q1: ${formatVal(Math.round(stats.q1))} | Q2: ${formatVal(Math.round(stats.q2))} | Q3: ${formatVal(Math.round(stats.q3))}`;
-    doc.text(statText, margin, y);
-    y += 10;
-    doc.setTextColor(30, 30, 30);
-  });
-
-  doc.save(`sailfit_${squad}_${state.testDate}.pdf`);
+    doc.setFontSize(8); doc.setFont(undefined, 'normal'); doc.setTextColor(100,100,100);
+    doc.text('Mean: ' + fmtVal(stats.mean, isTime, unit) + ' | Min: ' + fmtVal(stats.min, isTime, unit) + ' | Max: ' + fmtVal(stats.max, isTime, unit) + ' | Q1: ' + fmtVal(stats.q1, isTime, unit) + ' | Median: ' + fmtVal(stats.q2, isTime, unit) + ' | Q3: ' + fmtVal(stats.q3, isTime, unit), margin, y);
+    y += 10; doc.setTextColor(30,30,30);
+  }
+  doc.save('sailfit_' + squad + '_' + state.testDate + '.pdf');
   showToast('PDF downloaded');
 }
 
-function drawBar(doc, label, stats, globalMin, range, x, y, w, h, color, formatVal) {
-  // Label
-  doc.setFontSize(8);
-  doc.setFont(undefined, 'bold');
+function drawBar(doc, label, stats, globalMin, range, x, y, w, h, color, isTime, unit) {
+  doc.setFontSize(8); doc.setFont(undefined, 'bold');
   doc.setTextColor(color[0], color[1], color[2]);
-  doc.text(label, x, y);
-  y += 1;
-
-  // Background track
+  doc.text(label, x, y); y += 1;
   doc.setFillColor(240, 235, 229);
   doc.roundedRect(x, y, w, h, 1, 1, 'F');
-
-  // Range bar (min to max)
-  const minX = x + ((stats.min - globalMin) / range) * w;
-  const maxX = x + ((stats.max - globalMin) / range) * w;
+  var minX = x + ((stats.min - globalMin) / range) * w;
+  var maxX = x + ((stats.max - globalMin) / range) * w;
   doc.setFillColor(color[0], color[1], color[2]);
   doc.setGState(new doc.GState({ opacity: 0.25 }));
-  doc.rect(minX, y, maxX - minX, h, 'F');
+  doc.rect(minX, y, Math.max(maxX - minX, 0.5), h, 'F');
   doc.setGState(new doc.GState({ opacity: 1 }));
-
-  // Quartile markers
   if (stats.q1 !== undefined) {
-    const q1X = x + ((stats.q1 - globalMin) / range) * w;
-    const q3X = x + ((stats.q3 - globalMin) / range) * w;
+    var q1X = x + ((stats.q1 - globalMin) / range) * w;
+    var q3X = x + ((stats.q3 - globalMin) / range) * w;
     doc.setFillColor(color[0], color[1], color[2]);
     doc.setGState(new doc.GState({ opacity: 0.4 }));
-    doc.rect(q1X, y, q3X - q1X, h, 'F');
+    doc.rect(q1X, y, Math.max(q3X - q1X, 0.5), h, 'F');
     doc.setGState(new doc.GState({ opacity: 1 }));
   }
-
-  // Mean marker
-  const meanX = x + ((stats.mean - globalMin) / range) * w;
+  var meanX = x + ((stats.mean - globalMin) / range) * w;
   doc.setFillColor(color[0], color[1], color[2]);
   doc.rect(meanX - 0.5, y - 0.5, 1, h + 1, 'F');
-
-  // Mean label
-  doc.setFontSize(6);
-  doc.setTextColor(color[0], color[1], color[2]);
-  doc.text(formatVal(Math.round(stats.mean)), meanX, y + h + 3, { align: 'center' });
+  doc.setFontSize(6); doc.setTextColor(color[0], color[1], color[2]);
+  doc.text(fmtVal(stats.mean, isTime, unit), meanX, y + h + 3, { align: 'center' });
 }
 
 // ==================== CSV EXPORT ====================
 function exportCSV() {
-  const squad = state.currentSquad;
+  var squad = state.currentSquad;
   if (!squad) { showToast('Select a squad first'); return; }
-  const roster = getRoster();
-  const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
-
-  let csv = 'Date,Squad,Sailor ID,Name,Gender,YOB,Test,Result,Unit\n';
-
-  roster.forEach(s => {
-    allTests.forEach(testName => {
-      const results = getResults(testName);
+  var roster = getRoster();
+  var allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+  var csv = 'Date,Squad,Sailor ID,Name,Gender,YOB,Test,Result,Unit\n';
+  for (var i = 0; i < roster.length; i++) {
+    var s = roster[i];
+    for (var t = 0; t < allTests.length; t++) {
+      var testName = allTests[t]; var results = getResults(testName);
       if (results[s.id] !== undefined && results[s.id] !== null && results[s.id] !== 0) {
-        const isTime = isTimedTest(testName);
-        const val = isTime ? formatTime(results[s.id]) : results[s.id];
-        const unit = isTime ? 'time' : getUnit(testName);
-        csv += `${state.testDate},${squad},${s.id},${s.name},${s.gender},${s.yob},${getTestTitle(testName)},${val},${unit}\n`;
+        var isTime = isTimedTest(testName);
+        var val = isTime ? formatTime(results[s.id]) : results[s.id];
+        var u = isTime ? 'time' : getUnit(testName).trim();
+        csv += state.testDate + ',' + squad + ',' + s.id + ',"' + s.name + '",' + s.gender + ',' + s.yob + ',' + getTestTitle(testName) + ',' + val + ',' + u + '\n';
       }
-    });
-  });
-
-  downloadFile(`sailfit_${squad}_${state.testDate}.csv`, csv, 'text/csv');
+    }
+  }
+  downloadFile('sailfit_' + squad + '_' + state.testDate + '.csv', csv, 'text/csv');
   showToast('CSV exported');
 }
 
 function autoBackupCSV() {
   try {
-    const squad = state.currentSquad;
-    if (!squad) return;
-    const roster = getRoster();
-    if (roster.length === 0) return;
-    const allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
-    let hasData = false;
-    allTests.forEach(t => { if (Object.keys(getResults(t)).length > 0) hasData = true; });
+    if (!state.currentSquad || getRoster().length === 0) return;
+    var allTests = ['run5k','run18k','run27k','pushup','pullup','inclinepullup','broadjump','plank','shuttle'];
+    var hasData = false;
+    for (var t = 0; t < allTests.length; t++) { if (Object.keys(getResults(allTests[t])).length > 0) { hasData = true; break; } }
     if (!hasData) return;
     exportCSV();
   } catch(e) {}
 }
 
 function downloadFile(filename, content, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  var blob = new Blob([content], { type: type });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
 }
 
 // ==================== HELPERS ====================
-function getTestTitle(testName) {
-  const titles = {
-    run5k: '5km Run',
-    run18k: '1.8km Run',
-    run27k: '2.7km Run',
-    pushup: 'Push-up',
-    pullup: 'Pull-up',
-    inclinepullup: 'Incline Pull-up',
-    broadjump: 'Standing Broad Jump',
-    plank: 'Plank',
-    shuttle: 'Shuttle Agility Run'
-  };
-  return titles[testName] || testName;
+function getTestTitle(tn) {
+  var m = { run5k:'5km Run', run18k:'1.8km Run', run27k:'2.7km Run', pushup:'Push-up', pullup:'Pull-up', inclinepullup:'Incline Pull-up', broadjump:'Standing Broad Jump', plank:'Plank', shuttle:'Shuttle Agility Run' };
+  return m[tn] || tn;
 }
-
-function getTestSubtitle(testName) {
-  const subs = {
-    run5k: 'ILCA & 29er — Tap Stop as each sailor crosses the finish line',
-    run18k: 'Optimist — Tap Stop as each sailor crosses the finish line',
-    run27k: 'Optimist — Tap Stop as each sailor crosses the finish line',
-    pushup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
-    pullup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
-    inclinepullup: 'Set BPM, then Start. Tap Stop when a sailor fails.',
-    plank: 'Tap Stop when a sailor breaks form',
-    shuttle: '29er — Tap Stop as each sailor finishes'
-  };
-  return subs[testName] || '';
+function getTestSubtitle(tn) {
+  var m = { run5k:'ILCA & 29er - Tap Stop as each sailor crosses the finish line', run18k:'Optimist - Tap Stop as each sailor crosses the finish line', run27k:'Optimist - Tap Stop as each sailor crosses the finish line', pushup:'Set BPM, then Start. Tap Stop when a sailor fails.', pullup:'Set BPM, then Start. Tap Stop when a sailor fails.', inclinepullup:'Set BPM, then Start. Tap Stop when a sailor fails.', plank:'Tap Stop when a sailor breaks form', shuttle:'29er - Tap Stop as each sailor finishes' };
+  return m[tn] || '';
 }
-
-function isTimedTest(testName) {
-  return ['run5k','run18k','run27k','plank','shuttle'].includes(testName);
-}
-
-function getUnit(testName) {
-  if (isTimedTest(testName)) return '';
-  if (testName === 'broadjump') return ' cm';
-  return ' reps';
-}
+function isTimedTest(tn) { return tn === 'run5k' || tn === 'run18k' || tn === 'run27k' || tn === 'plank' || tn === 'shuttle'; }
+function getUnit(tn) { if (isTimedTest(tn)) return ''; if (tn === 'broadjump') return ' cm'; return ' reps'; }
 
 function renderPage(page) {
-  if (['run5k','run18k','run27k','plank','shuttle'].includes(page)) {
-    renderTimerPage(page, getTestTitle(page), getTestSubtitle(page));
-  } else if (['pushup','pullup','inclinepullup'].includes(page)) {
-    renderMetronomePage(page, getTestTitle(page), getTestSubtitle(page));
-  } else if (page === 'broadjump') {
-    renderBroadJumpPage();
-  } else if (page === 'report') {
-    renderReportPage();
-  }
+  if (isTimedTest(page)) renderTimerPage(page, getTestTitle(page), getTestSubtitle(page));
+  else if (page === 'pushup' || page === 'pullup' || page === 'inclinepullup') renderMetronomePage(page, getTestTitle(page), getTestSubtitle(page));
+  else if (page === 'broadjump') renderBroadJumpPage();
+  else if (page === 'report') renderReportPage();
 }
 
 // ==================== INIT ====================
 loadState();
 updateSquadCounts();
-
-// Restore squad selection
-if (state.currentSquad) {
-  selectSquad(state.currentSquad);
-}
-
-// Set date
+if (state.currentSquad) selectSquad(state.currentSquad);
 document.getElementById('testDate').value = state.testDate;
-
-// Auto-save on page unload
-window.addEventListener('beforeunload', function(e) {
-  saveState();
-  autoBackupCSV();
-});
-
-// Periodic save
+window.addEventListener('beforeunload', function() { saveState(); autoBackupCSV(); });
 setInterval(saveState, 10000);
 </script>
 </body>
