@@ -602,13 +602,23 @@ function handleRosterUpload(event) {
       const parts = line.split(',').map(s => s.trim());
       if (parts.length >= 4 && parts[0] && parts[1]) {
         // Skip header row
-        if (parts[0].toLowerCase() === 'id' || parts[0].toLowerCase() === 'sailor id') continue;
+        if (parts[0].toLowerCase().includes('id') || parts[0].toLowerCase().includes('sailor')) continue;
+        const dobStr = parts[2];
+        let yob = 2000;
+        if (dobStr.includes('/')) {
+          yob = parseInt(dobStr.split('/').pop()) || 2000;
+        } else if (dobStr.includes('-')) {
+          yob = parseInt(dobStr.split('-')[0]) || 2000;
+        } else {
+          yob = parseInt(dobStr) || 2000;
+        }
+        
         roster.push({
           id: parts[0],
           name: parts[1],
-          gender: parts[2].toUpperCase().startsWith('F') ? 'F' : 'M',
-          yob: parseInt(parts[3]) || 2000
-        });
+          gender: parts[3].toUpperCase().startsWith('F') ? 'F' : 'M',
+          yob: yob
+        });        
       }
     }
     if (roster.length === 0) {
